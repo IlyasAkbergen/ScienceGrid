@@ -70,9 +70,11 @@
                     <div class="panel-body">
                         <table class="table table-striped task-table">
                             <thead>
-                                <th>Project</th>
-                                <th>Admin</th>
-                                <th>Allowed users</th>
+                                <th class="col-sm-1.5">Project</th>
+                                <th class="col-sm-1">Admin</th>
+                                <th class="col-sm-4">Allowed users</th>
+                                <th class="col-sm-5">Tags</th>
+                                <th></th> <!-- for delete button  -->
                             </thead>
                             <tbody>
                                 @foreach ($projects as $project)
@@ -84,57 +86,120 @@
                                         </td>
                                         
                                         <td class="table-text">
-                                            <div>
+                                            <div class="col-sm-4 col-sm-offset-0">
                                                 <?php 
                                                     echo User::getUsername($project->email);
                                                  ?>
                                             </div>
                                         </td>
-                                        <td class="table-text">
-                                            <div>
-                       <!--                        // $FmyFunctions1 = new myFunctions;
-                                              // $output = $FmyFunctions1->getEmail($project->id);
-                                              //echo $output; -->
-                                                {{ Allow::getEmail($project->id) }}
-                                            </div>
-                                        </td>
-
-                                <!-- Add user button -->
-                                        
-                                         <td>
-                                            <form action="{{ url('allow') }}" method="POST">
-                                                {{ csrf_field() }}
-                                                
-                                                <input type="hidden" name="id" value="{{ $project->id }}">
-
-                                                <div class="col-sm-7">
-                                                    <input type="text" name="email" class="form-control" value="add new allowed user" required>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-primary btn-sm btn-link">
-                                                    <i class="fa fa-btn fa-trash"></i>Add
-                                                </button>
-
-                                             
-                                            </form>
-
-                                    <!-- Remove user -->
+                                        <td class="table-text col-sm-1">
                                             
-                                            <br><form action="{{ url('allow/'.$project->id) }}" method="POST">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                
-                                                <div class="col-sm-7">
-                                                    <input type="text" name="email" class="form-control" value="remove one of allowed users" required>
-                                                </div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div>
+                                                            <ul style=" list-style-type: none; margin: 0; padding: 0;">
+                                                                <?php  
+                                                                  $emails = array(); 
+                                                                  $emails = Allow::getEmail($project->id); 
+                                                                foreach ($emails as $email) {
+                                                                    ?><li> <?php echo $email;?> </li><?php
+                                                                            
+                                                                }
+                                                                ?>
+                                                            </ul> 
+                                                        </div>
+                                                    </td>
 
-                                                <button type="submit" class="btn btn-primary btn-sm btn-link">
-                                                    <i class="fa fa-btn fa-trash"></i>Remove
-                                                </button>
-                                            </form>
+                                            <!-- Add user button -->
+                                                    <td>
+                                                        <form action="{{ url('allow') }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            
+                                                            <input type="hidden" name="id" value="{{ $project->id }}">
+
+                                                            <div class="col-sm-5">
+                                                                <input type="text" name="email" class="form-control" value="add new" required>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary btn-sm btn-link">
+                                                                <i class="fa fa-btn fa-trash"></i>Add
+                                                            </button>
+
+                                                         
+                                                        </form>
+                                                        
+                                                <!-- Remove user -->
+                                                        
+                                                        <br><form action="{{ url('allow/'.$project->id) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('DELETE') }}
+                                                            
+                                                            <div class="col-sm-5">
+                                                                <input type="text" name="email" class="form-control" value="remove one" required>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary btn-sm btn-link">
+                                                                <i class="fa fa-btn fa-trash"></i>Remove
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>        
+                                            </table>
+                                        </td>
+                                        
+                                        <td>
+
+                                            <!-- TAGS HERE -->
+
+                                             <table>
+                                                <tr>
+                                                    <td>
+                                                        <div>
+                                                            <ul style=" list-style-type: none; margin: 0; padding: 0;">
+                                                                
+                                                            </ul> 
+                                                        </div>
+                                                    </td>
+
+                                            <!-- Add tag button -->
+                                                    <td>
+                                                        <form action="{{ url('tag') }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            
+                                                            <div class="col-sm-5">
+                                                                <input type="text" name="name" class="form-control" value="add tag" required>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary btn-sm btn-link">
+                                                                <i class="fa fa-btn fa-trash"></i>Add
+                                                            </button>
+
+                                                         
+                                                        </form>
+                                                        
+                                                <!-- Remove tag -->
+                                                        
+                                                        <br><form action="{{ url('tag/'.$project->id) }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('DELETE') }}
+                                                            
+                                                            <div class="col-sm-5">
+                                                                <input type="text" name="name" class="form-control" value="remove tag" required>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary btn-sm btn-link">
+                                                                <i class="fa fa-btn fa-trash"></i>Remove
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>        
+                                            </table>
+
+                                            <!-- TAGS END    -->
+
 
                                         </td>
-                    
                                         <!-- Task Delete Button -->
                                         <td>
                                             <form action="{{ url('project/'.$project->id) }}" method="POST">

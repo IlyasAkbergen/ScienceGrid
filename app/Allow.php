@@ -20,17 +20,21 @@ class Allow extends Model
 	
 		$allowed_results = Allow::where('project_id',$pID)->get();
 		$output = '';
+		$allows_array = array();
+		$i = 0;
 
 		foreach ($allowed_results as $a) {
 			
 			$allowed_email = User::getEmail($a->user_id);
-
 			foreach ( $allowed_email as $allowed ) {
-				$output = $output . $allowed->email . "\n";
+				// $output = $output . $allowed->email . "\n";
+           		$allows_array[$i] = $allowed->email;
             }
+
+            $i++;
 		}
 
-		return $output;
+		return $allows_array;
 	}
 
 
