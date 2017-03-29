@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+use App\Allow;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -14,6 +15,17 @@ class ProjectsController extends Controller
 	   	if( Auth::check() ){
 	   		$email = Auth::user()->email;
 		    $projects = Project::where('email', $email)->get();
+			$allows = Allow::getAllowedProjects(Auth::user()->id);
+
+			$i = count($projects);
+
+			foreach ($allows as $allow) {
+				
+				$projects[$i] = $allow;
+				$i++;
+
+			}
+
 
 		    return view('projects', ['projects' => $projects]); //edited
 	   	}else{

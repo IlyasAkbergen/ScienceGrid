@@ -34,3 +34,7 @@ Route::post('/allow', 'AllowsController@create');
 Route::delete('/allow/{pID}', 'AllowsController@delete');
 
 Route::post('/tag', 'TagController@store');
+
+Route::get('addProject', function () {
+    return view('addProject');
+});

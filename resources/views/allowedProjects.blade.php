@@ -12,9 +12,9 @@
         <div class="panel-body">
             <table class="table table-striped task-table">
                 <thead>
-                    <th>Project</th>
                     <th>Title</th>
-                    <th>Admin</th>
+                    <th>Contributors</th>
+                    <th>Modified</th>
                     
                 </thead>
                 <tbody>
@@ -31,7 +31,6 @@
                                     <div>{{ $allow->title }}</div>
                                 </a>
                             </td>
-                            <td class="table-text"><div>{{ $allow->title }}</div></td>
                             <td class="table-text">
                                 <div>
                                     <?php 
@@ -41,7 +40,7 @@
                             </td>
                             <td class="table-text">
                                 <div>
-           
+            <!-- modified budet -->
                                 </div>
                             </td>
                         </tr>
