@@ -1,8 +1,13 @@
 <?php
 use App\User;
 use App\Allow;
+use App\Category;
 ?>
 @extends('layouts.app')
+
+@section('settings')
+    <li><a href="#">Settings</a></li>
+@endsection
 
 @section('content')
     <div class="container">
@@ -28,7 +33,9 @@ use App\Allow;
 
             </div>
 
-            <div class="col-sm-6">Date created: {{ $project->created_at . " | "}} Last updated: {{ $project->updated_at }} </div>
+            <div class="col-sm-12">Date created: {{ $project->created_at . " | "}} Last updated: {{ $project->updated_at }} </div>
+            <div class="col-sm-12">Category: {{ Category::where('id', $project->category)->first()->name }}</div>
+            <div class="col-sm-12">Description: {{ $project->body }}</div>
             <!-- <div class="col-sm-2"> {{ $project->created_at . " | "}} </div> -->
            <!--  <div class="col-sm-2">Last updated:</div>
             <div class="col-sm-2    "> {{ $project->updated_at }} </div> -->

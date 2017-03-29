@@ -45,6 +45,7 @@
                   <li><a href="{{ url('/') }}">My projects</a></li>
                   <li><a href="#">Page 2</a></li>
                   <li><a href="#">Page 3</a></li>
+                  @yield('settings')
                 </ul>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
