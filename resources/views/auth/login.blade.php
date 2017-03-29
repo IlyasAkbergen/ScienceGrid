@@ -81,6 +81,9 @@
                                     </div>
                                 </div>
                             </form>
+
+                            <a href="{{ route('register') }}" class="btn btn-info col-sm-3" role="button" style="margin: 10px 10px 10px 249px;">Register</a>
+                        
                         </div>
                     </div>
                 </div>

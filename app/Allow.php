@@ -28,7 +28,7 @@ class Allow extends Model
 			$allowed_email = User::getEmail($a->user_id);
 			foreach ( $allowed_email as $allowed ) {
 				// $output = $output . $allowed->email . "\n";
-           		$allows_array[$i] = $allowed->email;
+           		$allows_array[$i] = $allowed->name;
             }
 
             $i++;

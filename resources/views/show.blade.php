@@ -1,32 +1,37 @@
+<?php
+use App\User;
+use App\Allow;
+?>
 @extends('layouts.app')
 
 @section('content')
     <div class="container">
         <div class="col-sm-offset-0 col-sm-12">
-            <h1>{{ $project->title }}</h1>
+            <h3>{{ $project->title }}</h3>
            
-                <!-- Display Validation Errors -->
                 @include('common.errors')
-            <!-- 
-                <textarea class="form-control" rows="15" id="comment" name="body"> 
-                    {{ $project->body }}
-                </textarea> -->
-        
-            <form action="{{ url('edit') }}" method="POST">
-                {{ csrf_field() }}
-                <br>
+            
+            <div class="col-sm-1">Contributors:</div>
+            <div class="col-sm-11">
                 
-                <textarea class="form-control" rows="15" name="body"> 
-                    {{ $project->body }}
-                </textarea>
+                 <ul style=" list-style-type: none; margin: 0; padding: 0;">
+                    <li><b style="color: blue;"><?php echo User::getUsername($project->email) . "\n"; ?></b><br> </li>
+                    <?php  
+                      $names = array(); 
+                      $names = Allow::getEmail($project->id); 
+                    foreach ($names as $names) {
+                        ?><li> <?php echo $names;?> </li><?php
+                                
+                    }
+                    ?>
+                </ul> 
 
-                <input type="hidden" name="id" value="{{ $project->id }}">
+            </div>
 
-                <button type="submit" class="btn btn-danger">
-                    <i class="fa fa-btn fa-trash"></i>Edit
-                </button>
-            </form>
-
+            <div class="col-sm-6">Date created: {{ $project->created_at . " | "}} Last updated: {{ $project->updated_at }} </div>
+            <!-- <div class="col-sm-2"> {{ $project->created_at . " | "}} </div> -->
+           <!--  <div class="col-sm-2">Last updated:</div>
+            <div class="col-sm-2    "> {{ $project->updated_at }} </div> -->
         </div>
     </div>
 @endsection

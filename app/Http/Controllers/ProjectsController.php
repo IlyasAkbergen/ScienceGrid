@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Allow;
+use App\Category;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -50,6 +51,8 @@ class ProjectsController extends Controller
 	    $project->title = $request->title;
 	    $project->body = $request->body;
 	    $project->email = Auth::user()->email;
+	    $project->category = $request->category; 
+	    // Category::where('name', $category)->first()->id;
 	    $project->save();
 
 	    return redirect('/');

@@ -38,3 +38,4 @@ Route::post('/tag', 'TagController@store');
 Route::get('addProject', function () {
     return view('addProject');
 });
+

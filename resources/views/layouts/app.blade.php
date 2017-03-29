@@ -39,11 +39,6 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                   
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-
                 </div>
                 
                 <ul class="nav navbar-nav">
@@ -76,6 +71,18 @@
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
+                                        </a>
+
+                                        <a href="">
+                                            
+                                            Profile
+
+                                        </a>
+
+                                        <a href="">
+                                            
+                                            Settings
+
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
