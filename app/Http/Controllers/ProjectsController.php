@@ -60,28 +60,35 @@ class ProjectsController extends Controller
 	}
 
 	public function delete($id) {
-	    
-	    Project::findOrFail($id)->delete();
-
-	    return redirect('/');
-
+	    if(Auth::guest()){
+			return redirect('/');
+		}else{
+		    Project::findOrFail($id)->delete();
+		   	return redirect('/');
+		}
 	}
 
 	public function show($id) {
 
-		$project = Project::find($id);
-
-		return view('show', compact('project'));
-
+		if(Auth::guest()){
+			return redirect('/');
+		}else{
+			$project = Project::find($id);
+        	return view('show', compact('project'));
+        }
 	}
 
 	public function edit(Request $request){
-
-		$project = Project::find($request->id);
-		$project->body = $request->body;
-		$project->save();
-
-		return view('show', compact('project'));
-
+		if(Auth::guest()){
+			return redirect('/');
+		}else{
+			$project = Project::find($request->id);
+			$project->title = $request->title;
+			$project->body = $request->description;
+			$project->category = $request->category;
+			$project->save();
+			
+			return redirect()->route('show', ['id' => $request->id]);
+		}
 	}
 }

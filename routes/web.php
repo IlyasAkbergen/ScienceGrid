@@ -19,7 +19,7 @@ Route::get('/', 'ProjectsController@projects');
 
 Route::post('/project', 'ProjectsController@create');
 
-Route::get('/show/{id}', 'ProjectsController@show');
+Route::get('/show/{id}', 'ProjectsController@show')->name('show');
 
 Route::post('/edit', 'ProjectsController@edit');
 
@@ -38,4 +38,6 @@ Route::post('/tag', 'TagController@store');
 Route::get('addProject', function () {
     return view('addProject');
 });
+
+Route::get('/show/settings/{pID}', 'SettingsController@show');
 

@@ -53,7 +53,7 @@
                     </select>
                 </div>
                     
-                <div class="col-sm-4">
+               <!--  <div class="col-sm-4">
                     {{ csrf_field() }}
                  
                     <div class="col-sm-6">
@@ -72,7 +72,7 @@
                         </table>
                     </div>
                 
-                </div>
+                </div> -->
                 
                <!--  <br><br><label for="task-name" class="col-sm-3 control-label">Admin's email</label>
 
