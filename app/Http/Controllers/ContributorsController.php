@@ -9,7 +9,7 @@ use App\Category;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
-class SettingsController extends Controller
+class ContributorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -48,13 +48,15 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($pID)
+    public function show($id)
     {
         if(Auth::guest()){
             return redirect('/');
         }else{
-            $project = Project::find($pID);
-            return view('settings', compact('project'));
+            $contributors = array(); 
+            $contributors = Allow::getEmail($id); 
+            
+            return view('contributors', compact('contributors', 'id'));
         }
     }
 
@@ -64,7 +66,6 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
     public function edit($id)
     {
         //

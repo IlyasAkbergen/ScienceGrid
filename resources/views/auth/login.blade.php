@@ -71,8 +71,8 @@
 
                                 <div class="form-group">
                                     <div class="col-md-8 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Login
+                                        <button type="submit" class="btn btn-success">
+                                            Sign In
                                         </button>
 
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
@@ -82,7 +82,7 @@
                                 </div>
                             </form>
 
-                            <a href="{{ route('register') }}" class="btn btn-info col-sm-3" role="button" style="margin: 10px 10px 10px 249px;">Register</a>
+                            <a href="{{ route('register') }}" class="btn btn-info col-sm-3" role="button" style="margin: 10px 10px 10px 249px;">Sing Up</a>
                         
                         </div>
                     </div>

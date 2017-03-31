@@ -10,6 +10,10 @@
 	<li><a href="#" class="nav-link active" style="background: #337ab7; color: white;">Settings</a></li>
 @endsection
 
+@section('contributors')
+    <li><a href="{{url('show/contributors'). '/' . $project->id}}">Contributors</a></li>
+@endsection
+
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="panel panel-default">

@@ -30,8 +30,6 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-
-                    
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
                         <span class="icon-bar"></span>
@@ -42,10 +40,11 @@
                 </div>
                 
                 <ul class="nav navbar-nav">
-                  <li><a href="{{ url('/') }}">My projects</a></li>
+                  <li {{ Request::is('/') ? ' class="active"' : null }}><a href="{{ url('/') }}"> My projects</a></li>
                   <li><a href="#">Page 2</a></li>
                   <li><a href="#">Page 3</a></li>
                   @yield('settings')
+                  @yield('contributors')
                 </ul>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
