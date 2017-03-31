@@ -13,7 +13,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'ScienceGrid') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -37,12 +37,16 @@
                         <span class="icon-bar"></span>
                     </button>
 
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'ScienceGrid') }}
+                    </a>
+
                 </div>
                 
                 <ul class="nav navbar-nav">
-                  <li {{ Request::is('/') ? ' class="active"' : null }}><a href="{{ url('/') }}"> My projects</a></li>
-                  <li><a href="#">Page 2</a></li>
-                  <li><a href="#">Page 3</a></li>
+
+                  <li><a href="{{ url('/') }}">Dashboard</a></li>
+                  <li><a href="#">Browse</a></li>
                   @yield('settings')
                   @yield('contributors')
                 </ul>
