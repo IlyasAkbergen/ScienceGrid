@@ -41,3 +41,6 @@ Route::get('addProject', function () {
 
 Route::get('/show/settings/{pID}', 'SettingsController@show');
 
+Route::get('/show/contributors/{id}', 'ContributorsController@show');
+
+

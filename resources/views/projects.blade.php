@@ -6,8 +6,8 @@
     use App\Allow;    
 ?>
     <div class="container">
-       <h1 class="col-sm-6" style="margin: 5px 0 5px 100px">Dashboard</h1>
-       <a href="addProject" class="btn btn-info col-sm-3" role="button" style="margin: 10px;">Create new project</a>
+       <h1 class="col-sm-7" style="margin: 5px 0 5px 100px">Dashboard</h1>
+       <a href="addProject" class="btn btn-success col-sm-1.5" role="button" style="margin: 10px;">Create new project</a>
     <div class="col-sm-offset-0 col-sm-12">
     
     @if (count($projects) > 0)

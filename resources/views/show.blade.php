@@ -6,8 +6,11 @@ use App\Category;
 @extends('layouts.app')
 
 @section('settings')
+     <li><a href="settings/{{ $project->id }}">Settings</a></li>
+@endsection
 
-    <li><a href="settings/{{ $project->id }}">Settings</a></li>
+@section('contributors')
+    <li><a href="contributors/{{ $project->id }}">Contributors</a></li>
 @endsection
 
 @section('content')

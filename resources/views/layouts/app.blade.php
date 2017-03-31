@@ -30,8 +30,6 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-
-                    
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
                         <span class="icon-bar"></span>
@@ -46,9 +44,11 @@
                 </div>
                 
                 <ul class="nav navbar-nav">
+
                   <li><a href="{{ url('/') }}">Dashboard</a></li>
                   <li><a href="#">Browse</a></li>
                   @yield('settings')
+                  @yield('contributors')
                 </ul>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
