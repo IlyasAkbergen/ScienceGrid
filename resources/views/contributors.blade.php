@@ -217,6 +217,8 @@ use App\Project;
                     <div class="td-content" data-bind="visible: !$root.collapsed() || contributor.expanded()">
                         <!-- ko if: (contributor.canEdit() || canRemove) -->
                                 <form action="{{url('allow'). '/' . $id}}" method="post">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
                                     <?php 
                                         $email = User::where('name', $contributor)->first()->email;
                                     ?>
