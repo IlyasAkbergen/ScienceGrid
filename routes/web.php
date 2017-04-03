@@ -1,19 +1,6 @@
 <?php
 use App\Project;
 use Illuminate\Http\Request;
-// Route::get('/', function () {
-
-// 	$projects = DB::table('projects')->get();
-//     return view('welcome', compact('projects') );
-// });
-
-
-// Route::controllers([
-// 	'auth' => 'Auth\AuthController',
-// 	'password' => 'Auth\PasswordController',
-// ]);
-
-
 
 Route::get('/', 'ProjectsController@projects');
 
@@ -29,9 +16,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::post('/allow', 'AllowsController@create');
+Route::post('/allow', 'Project_and_contributorsController@create');
 
-Route::delete('/allow/{pID}', 'AllowsController@delete');
+Route::delete('/allow/{pID}', 'Project_and_contributorsController@delete');
 
 Route::post('/tag', 'TagController@store');
 
@@ -43,4 +30,10 @@ Route::get('/show/settings/{pID}', 'SettingsController@show');
 
 Route::get('/show/contributors/{id}', 'ContributorsController@show');
 
+Route::get('profile/{id}', 'ProfileController@show');
 
+Route::get('/editProfilePage', function (){
+	return view('editProfile');
+})->name('editProfilePage');
+
+Route::post('/updateProfile', 'UsersController@update');

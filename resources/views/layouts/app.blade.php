@@ -1,6 +1,6 @@
 <?php 
     use App\User;
-    use App\Allow;    
+    use App\Project_and_contributors;    
     use App\project;
 ?>
 <!DOCTYPE html>
@@ -8,12 +8,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta fullName="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta fullName="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'ScienceGrid') }}</title>
+    <title>{{ config('app.fullName', 'ScienceGrid') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -76,7 +76,7 @@
                     </button>
 
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'ScienceGrid') }}
+                        {{ config('app.fullName', 'ScienceGrid') }}
                     </a>
 
                 </div>
@@ -103,12 +103,12 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->fullName }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="">
+                                    <li> 
+                                        <a href="{{url('profile' . '/' . Auth::user()->id) }}">
                                             Profile
                                         </a>
                                         <a href="">

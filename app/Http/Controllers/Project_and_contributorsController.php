@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Project;
+use App\User;
 use App\Project_and_contributors;
-use App\Category;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
-class SettingsController extends Controller
+
+class Project_and_contributorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,9 +26,55 @@ class SettingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+   
+    public function create(Request $request)
     {
-        //
+   
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $uID = User::getid($request->email);
+
+        if( Project_and_contributors::where('project_id', $request->id)->where('user_id', $uID)->count('user_id') > 0){
+            
+           return redirect('/')->withErrors('This user had already been added.');
+        
+        }else{
+            $allow = new Project_and_contributors; 
+            $allow->project_id = $request->id;
+            $allow->user_id = $uID; 
+            $allow->save();
+            return redirect('/');
+        }
+        
+    }
+
+
+    public function delete($pID, Request $request) {
+      
+       $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $uID = User::getid($request->email);
+
+        Project_and_contributors::where('project_id', $pID)->where('user_id', $uID)->delete();
+
+        return redirect('/');
+
     }
 
     /**
@@ -48,14 +94,9 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($pID)
+    public function show($id)
     {
-        if(Auth::guest()){
-            return redirect('/');
-        }else{
-            $project = Project::find($pID);
-            return view('settings', compact('project'));
-        }
+        //
     }
 
     /**
@@ -64,7 +105,6 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
     public function edit($id)
     {
         //

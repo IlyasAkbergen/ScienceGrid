@@ -90,8 +90,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}"><button class="btn btn-success btn-sm m-l-md">Sign In</button></a></li>
-                            <!-- <li><a href="{{ route('register') }}"><button class="btn btn-success btn-sm m-l-md">Sign Up</button></a></li> -->
+                            <li><a href="{{ route('login') }}"><button class="btn btn-primary btn-sm m-l-md">Sign In</button></a></li>
+                            <li><a href="{{ route('register') }}"><button class="btn btn-success btn-sm m-l-md">Sign Up</button></a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

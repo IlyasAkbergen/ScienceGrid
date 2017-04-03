@@ -1,6 +1,6 @@
 <?php
 use App\User;
-use App\Allow;
+use App\Project_and_contributors;
 use App\Category;
 use App\Project;
 ?>
@@ -184,23 +184,18 @@ use App\Project;
                         <span data-bind="ifnot: profileUrl"></span>
                         <span data-bind="if: profileUrl">
                             <?php
-                                $email = Project::where('id', $id)->first()->email;
+                                $user_id = Project::where('id', $id)->first()->user_id;
                             ?>
-                            <i><b><a class="name-search" href="/83akk/">{{ User::where('email', $email)->first()->name }}
+                            <i><b><a class="name-search" href="/83akk/">{{ User::where('id', $user_id)->first()->fullName }}
                             </a></b></i>
                         </span>
                       
                     </div>
                 </td>
             
-                <td>
-                    <div class="td-content" data-bind="visible: !$root.collapsed() || contributor.expanded()">
-                        <!-- ko if: (contributor.canEdit() || canRemove) -->
-                                <button href="#removeContributor" class="btn btn-danger btn-sm m-l-md" data-bind="click: remove" data-toggle="modal">Remove</button>
-                        <!-- /ko -->
-                    </div>
-                </td>
+              
                 </tr>
+               
                 @foreach ($contributors as $contributor) 
                 <tr class="contrib">
                 <td >
@@ -224,18 +219,22 @@ use App\Project;
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <?php 
-                                        $email = User::where('name', $contributor)->first()->email;
+                                        $email = User::where('fullName', $contributor)->first()->email;
                                     ?>
                                     
                                     <input type="hidden" value="{{$email}}" name="email">
+                                                                    
+                                    
                                     <button type="submit" class="btn btn-danger btn-sm m l-md" data-toggle="modal">
                                             Remove
                                     </button>
+                                  
                                 </form>
                         <!-- /ko -->
                     </div>
                 </td>
                 </tr>
+                
                 @endforeach
             </tbody>
         </table>

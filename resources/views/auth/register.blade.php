@@ -10,15 +10,15 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Full name</label>
+                        <div class="form-group{{ $errors->has('fullName') ? ' has-error' : '' }}">
+                            <label for="fullName" class="col-md-4 control-label">Full name</label>
 
                             <div class="col-md-6">
-                                <input placeholder="Full name" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input placeholder="Full name" id="fullName" type="text" class="form-control" name="fullName" value="{{ old('fullName') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('fullName'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('fullName') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -61,9 +61,28 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="role[]" class="col-md-4 control-label"  style="margin-right: 15px;">Role</label>
+
+                            <select name="role" id="role[]>" class="selectpicker">
+                                <option value="admin">
+                                   Admin
+                                </option>
+                                
+                                <option value="user">
+                                   User
+                                </option>
+
+                                <option value="moderator">
+                                   Moderator
+                                </option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Sign in
                                 </button>
                             </div>
                         </div>

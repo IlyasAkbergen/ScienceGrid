@@ -26,10 +26,10 @@
                     <input type="text" name="title" id="task-name" class="form-control" value="{{ old('project') }}" required>
                 </div>
                 <br><br>
-                <label for="body" class="col-sm-3 control-label">Description:</label>
+                <label for="description" class="col-sm-3 control-label">Description:</label>
                 
                 <div class="col-sm-6">
-                     <textarea class="form-control" rows="5" id="body" name="body"></textarea>
+                     <textarea class="form-control" rows="5" id="description" name="description"></textarea>
                 </div>
 
                 <br><br><br><br><br><br>

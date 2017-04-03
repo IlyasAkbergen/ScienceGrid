@@ -5,7 +5,7 @@ namespace App;
 use App\User;
 use App\Project;
 
-class Allow extends Model
+class Project_and_contributors extends Model
 {
 
 	public $timestamps = false;
@@ -18,7 +18,7 @@ class Allow extends Model
 
     public static function getEmail($pID) {
 	
-		$allowed_results = Allow::where('project_id',$pID)->get();
+		$allowed_results = Project_and_contributors::where('project_id',$pID)->get();
 		$output = '';
 		$allows_array = array();
 		$i = 0;
@@ -28,7 +28,7 @@ class Allow extends Model
 			$allowed_email = User::getEmail($a->user_id);
 			foreach ( $allowed_email as $allowed ) {
 				// $output = $output . $allowed->email . "\n";
-           		$allows_array[$i] = $allowed->name;
+           		$allows_array[$i] = $allowed->fullName;
             }
 
             $i++;
@@ -40,7 +40,7 @@ class Allow extends Model
 
 	public static function getAllowedProjects($uID){
 
-		$pIDs = Allow::where('user_id', $uID)->get();
+		$pIDs = Project_and_contributors::where('user_id', $uID)->get();
 		$projects = array();
 		
 		$i = 0;

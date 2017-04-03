@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'email', 'password',
+        'id', 'fullName', 'email', 'password', 'role',
     ];
 
     /**
@@ -29,12 +29,12 @@ class User extends Authenticatable
 
     public function allow(){
 
-        return $this->hasMany(Allow::class);
+        return $this->hasMany(Project_and_contributors::class);
     
     }
 
-    public static function getUsername($email){
-        return User::where('email', $email)->first()->name;
+    public static function getUsername($user_id){
+        return User::where('id', $user_id)->first()->fullName;
     }
 
     public static function getEmail($id){

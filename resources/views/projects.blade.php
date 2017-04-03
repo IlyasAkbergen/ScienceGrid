@@ -3,7 +3,7 @@
 @section('content')
 <?php 
     use App\User;
-    use App\Allow; 
+    use App\Project_and_contributors; 
     use App\Category;   
 ?>
 
@@ -42,8 +42,8 @@
                                 <div class="input-group m-b-lg">
                                     <label for="task-name" class="col-sm-2 control-label">Title:</label>
                                     <input class="form-control col-sm-2" name="title" id="task-name">
-                                    <label for="body" class="col-sm-2 control-label">Description:</label>
-                                    <input class="form-control col-sm-2" name="body" id="body">
+                                    <label for="description" class="col-sm-2 control-label">Description:</label>
+                                    <input class="form-control col-sm-2" name="description" id="description">
                                     <label for="category[]" class="col-sm-4 control-label">Category:</label>
                                     
                                     <select name="category" class="form-control" id="category[]">
@@ -114,9 +114,9 @@
                             <td class="table-text">
                                 <div class="col-sm-4 col-sm-offset-0">
                                     <?php 
-                                        ?><b style="color: blue;"><?php echo User::getUsername($project->email) . "\n"; ?></b><br><?php
+                                        ?><b style="color: blue;"><?php echo User::getUsername($project->user_id) . "\n"; ?></b><br><?php
                                         $emails = array(); 
-                                        $emails = Allow::getEmail($project->id); 
+                                        $emails = Project_and_contributors::getEmail($project->id); 
                                         
                                         foreach ($emails as $email) {
                                             echo $email . "\n";

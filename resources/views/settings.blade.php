@@ -1,7 +1,7 @@
 <?php
     use App\Category;
     use App\Project;
-    use App\Allow;
+    use App\Project_and_contributors;
     use App\User;
 ?>
 @extends('layouts.app')
@@ -57,7 +57,7 @@
 		       
 			        <div class="form-group">
 			            <label for="description">Description:</label>
-			            <textarea placeholder="{{ $project->body }} -Optional" name="description" class="form-control resize-vertical" style="max-width: 100%"></textarea>
+			            <textarea placeholder="{{ $project->description }} -Optional" name="description" class="form-control resize-vertical" style="max-width: 100%"></textarea>
 			        </div>
 		           
 		            <button type="submit" data-bind="click: updateAll" class="btn btn-success">Save changes</button>

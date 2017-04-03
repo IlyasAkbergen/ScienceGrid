@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Project;
+use App\Project_and_contributors;
+use App\Category;
 use App\User;
-use App\Allow;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
-
-class AllowsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,55 +27,9 @@ class AllowsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
-    public function create(Request $request)
+    public function create()
     {
-   
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:255'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/')
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        $uID = User::getid($request->email);
-
-        if( Allow::where('project_id', $request->id)->where('user_id', $uID)->count('user_id') > 0){
-            
-           return redirect('/')->withErrors('This user had already been added.');
-        
-        }else{
-            $allow = new Allow; 
-            $allow->project_id = $request->id;
-            $allow->user_id = $uID; 
-            $allow->save();
-            return redirect('/');
-        }
-        
-    }
-
-
-    public function delete($pID, Request $request) {
-      
-       $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:255'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/')
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        $uID = User::getid($request->email);
-
-        Allow::where('project_id', $pID)->where('user_id', $uID)->delete();
-
-        return redirect('/');
-
+        //
     }
 
     /**
@@ -107,7 +62,7 @@ class AllowsController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -117,9 +72,15 @@ class AllowsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        
+        $user = User::find(Auth::user()->id);
+        $user->fullName = $request->fullName;
+        $user->save();
+
+        return redirect()->route('editProfilePage');
+
     }
 
     /**
