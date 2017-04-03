@@ -75,19 +75,11 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'ScienceGrid') }}
-                    </a>
+                    
 
                 </div>
                 
-                <ul class="nav navbar-nav">
-
-                  <li><a href="{{ url('/') }}">Dashboard</a></li>
-                  <li><a href="#">Browse</a></li>
-                 
-                </ul>
-
+               
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     
                     <ul class="nav navbar-nav">
@@ -98,8 +90,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}"><button class="btn btn-success btn-sm m-l-md">Sign In</button></a></li>
+                            <!-- <li><a href="{{ route('register') }}"><button class="btn btn-success btn-sm m-l-md">Sign Up</button></a></li> -->
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -108,17 +100,24 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="">
-                                            Profile
-                                        </a>
-                                        <a href="">
-                                            Settings
-                                        </a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
+
+                                        <a href="">
+                                            
+                                            Profile
+
+                                        </a>
+
+                                        <a href="">
+                                            
+                                            Settings
+
+                                        </a>
+
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
@@ -130,9 +129,7 @@
                 </div>
             </div>
         </nav>
-        
-        @yield('settings_contributors')
-       
+
         @yield('content')
     </div>
 

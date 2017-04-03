@@ -26,10 +26,10 @@
                     <input type="text" name="title" id="task-name" class="form-control" value="{{ old('project') }}" required>
                 </div>
                 <br><br>
-                <label for="comment" class="col-sm-3 control-label">Description:</label>
+                <label for="body" class="col-sm-3 control-label">Description:</label>
                 
                 <div class="col-sm-6">
-                     <textarea class="form-control" rows="5" id="comment" name="body"></textarea>
+                     <textarea class="form-control" rows="5" id="body" name="body"></textarea>
                 </div>
 
                 <br><br><br><br><br><br>
@@ -52,33 +52,6 @@
 
                     </select>
                 </div>
-                    
-               <!--  <div class="col-sm-4">
-                    {{ csrf_field() }}
-                 
-                    <div class="col-sm-6">
-                        <table>
-                            <tr>
-                                <td>
-                                    <input type="text" name="newcategory" class="form-control" >
-                                </td>
-
-                                <td>
-                                    <button style="margin-left: 5px;"  class="btn btn-default">
-                                        <i class="fa fa-btn fa-plus"></i>Add new
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                
-                </div> -->
-                
-               <!--  <br><br><label for="task-name" class="col-sm-3 control-label">Admin's email</label>
-
-                <div class="col-sm-6">
-                    <input type="text" name="email" class="form-control">
-                </div> -->
             </div>
 
             <!-- Add Task Button -->
