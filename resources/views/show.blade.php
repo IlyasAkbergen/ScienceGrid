@@ -5,13 +5,17 @@ use App\Category;
 ?>
 @extends('layouts.app')
 
-@section('settings')
-     <li><a href="settings/{{ $project->id }}">Settings</a></li>
+@section('settings_contributors')
+    <nav class="navbar">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li><a href="settings/{{ $project->id }}" style="padding: 7px;">Settings</a></li>
+                    <li><a href="contributors/{{ $project->id }}" style="padding: 7px;">Contributors</a></li>
+                </ul>
+            </div>
+        </nav>
 @endsection
 
-@section('contributors')
-    <li><a href="contributors/{{ $project->id }}">Contributors</a></li>
-@endsection
 
 @section('content')
     <div class="container">

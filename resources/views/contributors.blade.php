@@ -6,13 +6,17 @@ use App\Project;
 ?>
 @extends('layouts.app')
 
-@section('settings')
-    <li><a href="{{url('show/settings'). '/' . $id}}">Settings</a></li>
+@section('settings_contributors')
+<nav class="navbar">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li><a href="{{url('show/settings'). '/' . $id}}" style="padding: 7px;">Settings</a></li>
+            <li><a href="#" class="nav-link active" style="background: #337ab7; color: white; padding: 7px;">Contributors</a></li>
+        </ul>
+    </div>
+</nav>
 @endsection
 
-@section('contributors')
-    <li><a href="#" class="nav-link active" style="background: #337ab7; color: white;">Contributors</a></li>
-@endsection
 
 @section('content')
     

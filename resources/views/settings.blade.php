@@ -6,12 +6,15 @@
 ?>
 @extends('layouts.app')
 
-@section('settings')
-	<li><a href="#" class="nav-link active" style="background: #337ab7; color: white;">Settings</a></li>
-@endsection
-
-@section('contributors')
-    <li><a href="{{url('show/contributors'). '/' . $project->id}}">Contributors</a></li>
+@section('settings_contributors')
+	<nav class="navbar">
+            <div class="container">
+                <ul class="nav navbar-nav">
+    				<li><a href="#" class="nav-link active" style="background: #337ab7; color: white; padding: 7px;">Settings</a></li>             
+                	<li><a href="{{url('show/contributors'). '/' . $project->id}}" style="padding: 7px;">Contributors</a></li>
+                </ul>
+            </div>
+        </nav>
 @endsection
 
 @section('content')
