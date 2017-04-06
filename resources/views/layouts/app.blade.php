@@ -109,15 +109,16 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li> 
                                         <a href="{{url('profile' . '/' . Auth::user()->id) }}">
-                                            Profile
+                                           <span class="glyphicon glyphicon-user"></span>Profile
                                         </a>
                                         <a href="">
+                                            <span class="glyphicon glyphicon-cog"></span>
                                             Settings
                                         </a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <span class="glyphicon glyphicon-log-out"></span>Logout
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}

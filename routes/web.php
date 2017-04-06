@@ -32,12 +32,14 @@ Route::get('/show/contributors/{id}', 'ContributorsController@show');
 
 Route::get('profile/{id}', 'ProfileController@show');
 
-Route::get('/editProfilePage', function (){
-	return view('editProfile');
-})->name('editProfilePage');
+Route::get('/editProfilePage', 'ProfileController@show_for_edit');
 
 Route::post('/updateProfile', 'UsersController@update');
 
 Route::post('/updateEmployment', 'EmploymentController@create');
 
 Route::post('/updateEducation', 'EducationController@create');
+
+Route::get('/deleteEmployment/{id}', 'EmploymentController@delete');
+
+Route::get('/deleteEducation/{id}', 'EducationController@delete');

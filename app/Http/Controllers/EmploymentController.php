@@ -47,4 +47,15 @@ class EmploymentController extends Controller
         }
     }
 
+    public function delete($id){
+
+        if(Auth::guest()){
+            return redirect('/');
+        }else{
+            Employment::where('employment_id', $id)->delete();
+            User_and_employments::where('employment_id', $id)->delete();
+            return redirect('/editProfilePage');
+        }
+    }
+
 }

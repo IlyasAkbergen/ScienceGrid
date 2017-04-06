@@ -131,8 +131,70 @@
                     <div >
 
                     <div >
+                    
+                    <div data-bind="ifnot: contents().length" class="col-sm-6 dropdown">
+                    @if(empty($employments))
+                        <div class="well well-sm">Not provided</div>
+                    @else
+                        <?php $i = 0; ?>
+                        @foreach($employments as $emp)
+                        <div class="well well-sm">
+                            {{ $emp->employer}}
+                            <a href="{{ url('deleteEmployment') . '/' . $emp->employment_id }}"><button class="btn btn-danger btn-sm" style="float: right;"><span class="glyphicon glyphicon-remove"></span></button></a>
+                            <?php 
+                                if($emp->ongoing === 1){
+                                    $endDate = 'ongoing'; 
+                                }else{
+                                    $endDate = $emp->endDate;
+                                } 
+                            ?>
+                            <p><i><small>{{ $emp->startDate  . ' - ' . $endDate}}</small></i></p>
+                           
+                            <button class="button" onclick="$('#target{{$i}}').toggle();">
+                                <span class="caret"></span>
+                            </button>
+                            <div id="target{{$i}}" style="display: none">
+                                @if(!empty($emp->department))
+                                    <b>Department: </b>{{ $emp->department }}
+                                    {{ "\n" }}
+                                @endif
+                                <p></p>
+                                @if(!empty($emp->jobTitle))
+                                    <b>Job title: </b>{{ "\n" . $emp->jobTitle }}
+                                @endif
+                             
+                            </div>    
 
-                        <form role="form" method="post" action="{{url('updateEmployment')}}">
+                        </div>
+                        
+                        <?php $i++; ?>
+                        @endforeach
+                    @endif
+                    </div>
+
+<!-- START MODAL  -->
+        <p></p>
+        <button type="button" class="btn btn-success btn-sm m-l-md" data-toggle="modal" data-target="#myModal" >
+            <span class="glyphicon glyphicon-plus"></span> Add new
+        </button>
+        
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><b>Add new employment information</b></h4>
+              </div>
+              <!-- MODAL BODY MODAL BODY -->
+
+              <div class="modal-body">
+
+                <!-- Whom to add -->
+                <div data-bind="if: page() == 'whom'">
+                    <!-- Find contributors -->
+                    <form role="form" method="post" action="{{url('updateEmployment')}}">
     
                         <div>
                                 <div>
@@ -214,6 +276,29 @@
 
                         </form>
 
+
+
+                    <!-- Choose which to add -->
+                   
+                </div>
+                <!-- Component selection page -->
+                
+
+                <!-- Invite user page -->
+                <div data-bind="if:page() === &quot;invite&quot;"></div><!-- end invite user page -->
+
+            </div>
+
+            <!-- END MODAL BODY MODAL BODY  -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- END MODAL -->
+                        
                     </div>
 
                     <div data-bind="if: mode() === 'view'"></div>
@@ -225,6 +310,66 @@
                     <div data-bind="template: {name: 'profileSchools'}">
 
             <div data-bind="if: mode() === 'edit'">
+
+            <div data-bind="ifnot: contents().length" class="dropdown col-sm-6">
+                            @if(empty($educations))
+                                <div class="well well-sm">Not provided</div>
+                            @else
+                                <?php $j=0; ?>
+                                @foreach($educations as $edu)
+                                <div class="well well-sm">
+                                    {{ $edu->universityName}}
+                                     <a href="{{ url('deleteEducation'). '/' . $edu->education_id }}"><button class="btn btn-danger btn-sm" style="float: right;"><span class="glyphicon glyphicon-remove"></span> </button></a>
+                                    <?php 
+                                        if($edu->ongoing === 1){
+                                            $endDate = 'ongoing'; 
+                                        }else{
+                                            $endDate = $edu->endDate;
+                                        } 
+                                    ?>
+                                    <p><i><small>{{ $edu->startDate  . ' - ' . $endDate}}</small></i></p>
+                                    
+                                    <button class="button" onclick="$('#{{$j}}target').toggle();">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div id="{{$j}}target" style="display: none">
+                                        @if(!empty($edu->department))
+                                            <b>Department: </b>{{ $edu->department }}
+                                        @endif
+                                        
+                                        <p></p>
+                                        @if(!empty($edu->degree))
+                                            <b>Degree: </b>{{ $edu->degree }}
+                                        @endif
+                                     
+                                    </div>
+                                </div>
+                                <?php $j++; ?>
+                                @endforeach
+                            @endif
+                        </div>    
+
+            <p></p>
+            <button type="button" class="btn btn-success btn-sm m-l-md" data-toggle="modal" data-target="#myModal2" >
+                <span class="glyphicon glyphicon-plus"></span> Add new
+            </button>
+            
+            <div id="myModal2" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><b>Add new education information</b></h4>
+                  </div>
+                  <!-- MODAL BODY MODAL BODY -->
+
+                  <div class="modal-body">
+
+                    <!-- Whom to add -->
+                    <div data-bind="if: page() == 'whom'">
+                        <!-- Find contributors -->    
 
                 <form role="form" method="post" action="{{url('updateEducation')}}">
     
@@ -307,6 +452,24 @@
                         <br>
 
                         </form>
+                         <!-- Choose which to add -->
+                   
+                </div>
+                <!-- Component selection page -->
+                
+
+                <!-- Invite user page -->
+                <div data-bind="if:page() === &quot;invite&quot;"></div><!-- end invite user page -->
+
+            </div>
+
+            <!-- END MODAL BODY MODAL BODY  -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
             </div>
 

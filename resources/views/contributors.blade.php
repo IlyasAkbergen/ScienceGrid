@@ -28,7 +28,7 @@ use App\Project;
                   <i class="fa fa-plus"></i> Add
                 </a>
  -->    <button type="button" class="btn btn-success btn-sm m-l-md" data-toggle="modal" data-target="#myModal">
-            <i class="fa fa-plus"></i> Add
+            <span class="glyphicon glyphicon-plus"></span> Add
         </button>
             <!-- /ko -->
         </h3>

@@ -46,4 +46,16 @@ class EducationController extends Controller
 
         }
     }
+
+     public function delete($id){
+
+        if(Auth::guest()){
+            return redirect('/');
+        }else{
+            Education::where('education_id', $id)->delete();
+            User_and_educations::where('education_id', $id)->delete();
+            return redirect('/editProfilePage');
+        }
+    }
+
 }

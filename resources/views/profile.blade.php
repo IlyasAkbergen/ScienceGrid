@@ -17,7 +17,7 @@
             Ilyas
         </span>
         <span class="edit-profile-settings">
-                <a href="{{url('editProfilePage')}}"><i class="fa fa-pencil m-r-xs"></i> Edit your profile</a>
+                <a href="{{url('editProfilePage')}}"><span class="glyphicon glyphicon-pencil"></span> Edit your profile</a>
         </span>
     </div>
 </div><!-- end-page-header -->
