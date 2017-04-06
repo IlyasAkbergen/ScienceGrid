@@ -28,12 +28,17 @@
     <div class="col-sm-6">
 
         <table class="table table-plain">
-                <tbody><tr>
+            <tbody>
+                <tr>
                     <td>Member&nbsp;Since</td>
                     <td>{{ User::where('id', $id)->first()->created_at }}</td>
                 </tr>
-               
-        </tbody></table>
+                <tr>
+                   <td>Address:</td>
+                   <td>{{ User::where('id', $id)->first()->address }}</td>
+               </tr>       
+            </tbody>
+        </table>
         <h2>
            {{ count(Project::where('user_id', $id)->get()) }}  @if(count(Project::where('user_id', $id)->get()) !== 1)
                                                                     {{ 'projects' }}
@@ -59,24 +64,24 @@
             <div class="m-t-md tab-pane active" id="social">
                 <div data-bind="template: {name: 'profileSocial'}">
 
-    <link rel="stylesheet" href="/static/css/pages/profile-page.css">
-    <link rel="stylesheet" href="/static/vendor/bower_components/academicons/css/academicons.css">
+                    <link rel="stylesheet" href="/static/css/pages/profile-page.css">
+                    <link rel="stylesheet" href="/static/vendor/bower_components/academicons/css/academicons.css">
 
-    <div data-bind="if: mode() === 'edit'"></div>
+                    <div data-bind="if: mode() === 'edit'"></div>
 
-    <div data-bind="if: mode() === 'view'">
+                    <div data-bind="if: mode() === 'view'">
 
-        <table class="table" data-bind="if: hasValues()"></table>
+                        <table class="table" data-bind="if: hasValues()"></table>
 
-        <div >
-            <div class="well well-sm">Not provided</div>
-        </div>
+                        <div >
+                            <div class="well well-sm">Not provided</div>
+                        </div>
 
-        <div data-bind="if: editAllowed"></div>
+                        <div data-bind="if: editAllowed"></div>
 
-    </div>
+                    </div>
 
-</div>
+                </div>
             </div>
 
             <div class="m-t-md tab-pane" id="jobs">
@@ -84,70 +89,105 @@
 
                     <div data-bind="if: mode() === 'edit'"></div>
 
+              
+                    <div data-bind="ifnot: contents().length" class="dropdown">
+                    @if(empty($employments))
+                        <div class="well well-sm">Not provided</div>
+                    @else
+                        <?php $i = 0; ?>
+                        @foreach($employments as $emp)
+                        <div class="well well-sm">
+                            {{ $emp->employer}}
+                            <?php 
+                                if($emp->ongoing === 1){
+                                    $endDate = 'ongoing'; 
+                                }else{
+                                    $endDate = $emp->endDate;
+                                } 
+                            ?>
+                            <p><i><small>{{ $emp->startDate  . ' - ' . $endDate}}</small></i></p>
+                           
+                            <button class="button" onclick="$('#target{{$i}}').toggle();">
+                                <span class="caret"></span>
+                            </button>
+                            <div id="target{{$i}}" style="display: none">
+                                @if(!empty($emp->department))
+                                    <b>Department: </b>{{ $emp->department }}
+                                    {{ "\n" }}
+                                @endif
+                                <p></p>
+                                @if(!empty($emp->jobTitle))
+                                    <b>Job title: </b>{{ "\n" . $emp->jobTitle }}
+                                @endif
+                             
+                            </div>     
+                        </div>
+                        <?php $i++; ?>
+                        @endforeach
+                    @endif
+                    </div>
+                      
+                    <div class="row" data-bind="if: contents().length"></div>
+
+                    <div data-bind="if: editable"></div>
+
+                </div>
+
+            </div>
+        
+
+            <div class="m-t-md tab-pane" id="schools">
+                <div data-bind="template: {name: 'profileSchools'}">
+
+                    <div data-bind="if: mode() === 'edit'"></div>
+
                     <div data-bind="if: mode() === 'view'">
 
-                        <div data-bind="ifnot: contents().length">
-                            @if(empty($employment))
+                        <div data-bind="ifnot: contents().length" class="dropdown">
+                            @if(empty($educations))
                                 <div class="well well-sm">Not provided</div>
                             @else
+                                <?php $j=0; ?>
+                                @foreach($educations as $edu)
                                 <div class="well well-sm">
-                                    {{ $employment->employer}}
+                                    {{ $edu->universityName}}
                                     <?php 
-                                        if($employment->ongoing === 1){
+                                        if($edu->ongoing === 1){
                                             $endDate = 'ongoing'; 
                                         }else{
-                                            $endDate = $employment->endDate;
+                                            $endDate = $edu->endDate;
                                         } 
                                     ?>
-                                    <p><i><small>{{ $employment->startDate  . ' - ' . $endDate}}</small></i></p>
+                                    <p><i><small>{{ $edu->startDate  . ' - ' . $endDate}}</small></i></p>
                                     
+                                    <button class="button" onclick="$('#{{$j}}target').toggle();">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div id="{{$j}}target" style="display: none">
+                                        @if(!empty($edu->department))
+                                            <b>Department: </b>{{ $edu->department }}
+                                        @endif
+                                        
+                                        <p></p>
+                                        @if(!empty($edu->degree))
+                                            <b>Degree: </b>{{ $edu->degree }}
+                                        @endif
+                                     
+                                    </div>
                                 </div>
+                                <?php $j++; ?>
+                                @endforeach
                             @endif
                         </div>
 
                         <div class="row" data-bind="if: contents().length"></div>
+
 
                         <div data-bind="if: editable"></div>
 
                     </div>
 
                 </div>
-            </div>
-
-            <div class="m-t-md tab-pane" id="schools">
-                <div data-bind="template: {name: 'profileSchools'}">
-
-    <div data-bind="if: mode() === 'edit'"></div>
-
-    <div data-bind="if: mode() === 'view'">
-
-        <div data-bind="ifnot: contents().length">
-            @if(empty($education))
-                <div class="well well-sm">Not provided</div>
-            @else
-                <div class="well well-sm">
-                    {{ $education->universityName}}
-                    <?php 
-                        if($education->ongoing === 1){
-                            $endDate = 'ongoing'; 
-                        }else{
-                            $endDate = $education->endDate;
-                        } 
-                    ?>
-                    <p><i><small>{{ $education->startDate  . ' - ' . $endDate}}</small></i></p>
-                    
-                </div>
-            @endif
-        </div>
-
-        <div class="row" data-bind="if: contents().length"></div>
-
-
-        <div data-bind="if: editable"></div>
-
-    </div>
-
-</div>
             </div>
 
         </div>
@@ -208,27 +248,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading clearfix">
-                <h3 class="panel-title">Public components</h3>
-            </div>
-            <div class="panel-body">
-              
-
-        <div class="help-block">
-        You have no public components.
-            <p>
-                Find out how to make your components
-                <a href="https://osf.io/getting-started/#privacy" target="_blank">public</a>.
-            </p>
-        </div>
-
-        <script src="/static/public/js/render-nodes.4bd4984d816728ba2cb8.js"></script>
-
-            </div>
-        </div>
-    </div>
+    
 </div><!-- end row -->
 
 <script id="profileSocial" type="text/html">

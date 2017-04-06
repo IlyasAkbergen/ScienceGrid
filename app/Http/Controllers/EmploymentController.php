@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\Employment;
 use App\User;
+use App\User_and_employments;
+
 
 class EmploymentController extends Controller
 {
@@ -34,9 +36,11 @@ class EmploymentController extends Controller
             }
             $employment->save();
     
-            $user = User::find(Auth::user()->id);
-            $user->employment_id = Employment::all()->last()->employment_id;
-            $user->save();
+            $user_and_employments = new User_and_employments;
+            $user_and_employments->user_id = Auth::user()->id;
+            $user_and_employments->employment_id = Employment::all()->last()->employment_id;
+            $user_and_employments->save();
+
 
             return redirect('/editProfilePage');
 

@@ -106,10 +106,10 @@
                             <div class="form-group">
                                 <br>
                                 <label>Full name</label>
-                                <input class="form-control" name="fullName"><span class="validationMessage" style="display: none;"></span>
-                                <div data-bind="visible: showMessages, css:'text-danger'" class="text-danger" style="display: none;">
-                                    <p data-bind="validationMessage: full" style="display: none;"></p>
-                                </div>
+                                <input class="form-control" name="fullName" required-autoload><span class="validationMessage" style="display: none;"></span>
+                                <br>
+                                <label>Address</label>
+                                <input class="form-control" name="address"><span class="validationMessage" style="display: none;"></span>
                             </div>
 
                             <hr>

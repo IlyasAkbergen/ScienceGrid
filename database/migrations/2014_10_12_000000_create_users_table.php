@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('role');
             $table->rememberToken();
             $table->timestamps();
-            $table->integer('employment_id')->nullable();
-            $table->integer('education_id')->nullable();
+            $table->integer('user_and_employment_id')->nullable();
+            $table->integer('user_and_education_id')->nullable();
         });
     }
 

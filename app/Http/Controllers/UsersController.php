@@ -77,6 +77,7 @@ class UsersController extends Controller
         if( Auth::check() ){
             $user = User::find(Auth::user()->id);
             $user->fullName = $request->fullName;
+            $user->address = $request->address;
             $user->save();
 
             return redirect()->route('editProfilePage');
