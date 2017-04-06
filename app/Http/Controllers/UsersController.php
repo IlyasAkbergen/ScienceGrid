@@ -74,13 +74,15 @@ class UsersController extends Controller
      */
     public function update(Request $request)
     {
-        
-        $user = User::find(Auth::user()->id);
-        $user->fullName = $request->fullName;
-        $user->save();
+        if( Auth::check() ){
+            $user = User::find(Auth::user()->id);
+            $user->fullName = $request->fullName;
+            $user->save();
 
-        return redirect()->route('editProfilePage');
-
+            return redirect()->route('editProfilePage');
+        }else{
+            return view('auth.login');
+        }
     }
 
     /**

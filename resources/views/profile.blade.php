@@ -68,7 +68,7 @@
 
         <table class="table" data-bind="if: hasValues()"></table>
 
-        <div data-bind="ifnot: hasValues()">
+        <div >
             <div class="well well-sm">Not provided</div>
         </div>
 
@@ -87,7 +87,22 @@
                     <div data-bind="if: mode() === 'view'">
 
                         <div data-bind="ifnot: contents().length">
-                            <div class="well well-sm">Not provided</div>
+                            @if(empty($employment))
+                                <div class="well well-sm">Not provided</div>
+                            @else
+                                <div class="well well-sm">
+                                    {{ $employment->employer}}
+                                    <?php 
+                                        if($employment->ongoing === 1){
+                                            $endDate = 'ongoing'; 
+                                        }else{
+                                            $endDate = $employment->endDate;
+                                        } 
+                                    ?>
+                                    <p><i><small>{{ $employment->startDate  . ' - ' . $endDate}}</small></i></p>
+                                    
+                                </div>
+                            @endif
                         </div>
 
                         <div class="row" data-bind="if: contents().length"></div>
@@ -107,7 +122,22 @@
     <div data-bind="if: mode() === 'view'">
 
         <div data-bind="ifnot: contents().length">
-            <div class="well well-sm">Not provided</div>
+            @if(empty($education))
+                <div class="well well-sm">Not provided</div>
+            @else
+                <div class="well well-sm">
+                    {{ $education->universityName}}
+                    <?php 
+                        if($education->ongoing === 1){
+                            $endDate = 'ongoing'; 
+                        }else{
+                            $endDate = $education->endDate;
+                        } 
+                    ?>
+                    <p><i><small>{{ $education->startDate  . ' - ' . $endDate}}</small></i></p>
+                    
+                </div>
+            @endif
         </div>
 
         <div class="row" data-bind="if: contents().length"></div>

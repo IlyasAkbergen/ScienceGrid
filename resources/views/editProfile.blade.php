@@ -69,7 +69,7 @@
                       <li class="active">
                         <a href="#">Profile information</a></li>
 
-                      <li class="">
+                     <!--  <li class="">
                         <a href="/settings/account/">Account settings</a></li>
 
                       <li class="">
@@ -82,7 +82,7 @@
                         <a href="/settings/applications/">Developer apps</a></li>
 
                       <li class="">
-                        <a href="/settings/tokens/">Personal access tokens</a></li>
+                        <a href="/settings/tokens/">Personal access tokens</a></li> -->
                   </ul>
                 </div>
              </div>
@@ -128,59 +128,45 @@
                 </div>
 
                 <div class="m-t-md tab-pane" id="jobs">
-                    <div data-bind="template: {name: 'profileJobs'}">
+                    <div >
 
-                    <div data-bind="if: mode() === 'edit'">
+                    <div >
 
-                        <form role="form" data-bind="submit: submit, validationOptions: {insertMessages: false, messagesOnModified: false}">
-
-                        <div data-bind="sortable: {
-                                data: contents,
-                                options: {
-                                    handle: '.sort-handle',
-                                    containment: '#containDrag',
-                                    tolerance: 'pointer'
-                                }
-                            }" class="ko_container ui-sortable">
+                        <form role="form" method="post" action="{{url('updateEmployment')}}">
+    
+                        <div>
                                 <div>
 
-                                <div class="well well-sm sort-handle">
-                                    <span>Position <span data-bind="text: $index() + 1">1</span></span>
-                                    <span data-bind="visible: $parent.contentsLength() > 1" style="display: none;">
-                                        [ drag to reorder ]
-                                    </span>
-                                    <a class="text-danger pull-right" data-bind="click: $parent.removeContent.bind($parent)">Remove</a>
-                                </div>
-
+                                <br>
+                                {{ csrf_field() }}
                                 <div class="form-group">
                                     <label>Institution / Employer</label>
-                                    <input class="form-control" data-bind="value: institution" placeholder="Required">
-                                    <div data-bind="visible: $parent.showMessages, css:'text-danger'" class="text-danger" style="display: none;">
+                                    <input class="form-control" name="employer" placeholder="Required" required autofocus>
+                                    <div  class="text-danger" style="display: none;">
                                         <p data-bind="validationMessage: institution" style="display: none;"></p>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Department / Institute</label>
-                                    <input class="form-control" data-bind="value: department">
+                                    <input class="form-control" name="department">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Job title</label>
-                                    <input class="form-control" data-bind="value: title">
+                                    <input class="form-control" name="jobTitle">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Start date</label>
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" data-bind="options: months,
-                                                     optionsCaption: '-- Month --',
-                                                     value: startMonth"><option value="">-- Month --</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
+                                            <select required autofocus name="startmonth">
+                                                <option value="">-- Month --</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="form-control" placeholder="Year" data-bind="value: startYear">
+                                            <input class="form-control" placeholder="Year" name="startyear" required autofocus>
                                         </div>
                                     </div>
                                 </div>
@@ -188,22 +174,21 @@
                                 <div class="form-group" data-bind="ifnot: ongoing">
                                     <label>End date</label>
                                         <div class="row">
-                                            <div class="col-md-3">
-                                                <select class="form-control" data-bind="options: months,
-                                                     optionsCaption: '-- Month --',
-                                                     value: endMonth"><option value="">-- Month --</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input class="form-control" placeholder="Year" data-bind="value: endYear">
-                                            </div>
+                                        <div class="col-md-3">
+                                            <select required autofocus name="endmonth">
+                                                <option value="">-- Month --</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
+                                            </select>
                                         </div>
+                                        <div class="col-md-3">
+                                            <input class="form-control" placeholder="Year" name="endyear" required autofocus>
+                                        </div>
+                                    </div>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label>Ongoing</label>
-                                    <input type="checkbox" data-bind="checked: ongoing, click: clearEnd">
+                                    <input type="checkbox" name="ongoing">
                                 </div>
 
                                 <div data-bind="visible: $parent.showMessages, css:'text-danger'" class="text-danger" style="display: none;">
@@ -218,24 +203,14 @@
                              </div>
                         </div>
 
-                        <div>
-                            <a class="btn btn-default" data-bind="click: addContent">
-                                Add another
-                            </a>
-                        </div>
-
                         <div class="p-t-lg p-b-lg">
 
-                            <button type="button" class="btn btn-default" data-bind="click: cancel">Discard changes</button>
+                            <button  type="reset" class="btn btn-default" >Discard changes</button>
 
                             <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">Save</button>
 
                         </div>
-
-                        <!-- Flashed Messages -->
-                        <div class="help-block">
-                            <p data-bind="html: message, attr: {class: messageClass}"></p>
-                        </div>
+                        <br>
 
                         </form>
 
@@ -251,97 +226,87 @@
 
             <div data-bind="if: mode() === 'edit'">
 
-                <form role="form" data-bind="submit: submit, validationOptions: {insertMessages: false, messagesOnModified: false}">
+                <form role="form" method="post" action="{{url('updateEducation')}}">
+    
+                        <div>
+                                <div>
 
-                    <div data-bind="sortable: {
-                            data: contents,
-                            options: {
-                                handle: '.sort-handle',
-                                containment: '#containDrag',
-                                tolerance: 'pointer'
-                            }
-                        }" class="ko_container ui-sortable"><div>
+                                <br>
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label>Institution</label>
+                                    <input class="form-control" name="institution" placeholder="Required" required autofocus>
+                                    <div  class="text-danger" style="display: none;">
+                                        <p data-bind="validationMessage: institution" style="display: none;"></p>
+                                    </div>
+                                </div>
 
-                            <div class="well well-sm sort-handle">
-                                <span>Position <span data-bind="text: $index() + 1">1</span></span>
-                                <span data-bind="visible: $parent.contentsLength() > 1" style="display: none;">
-                                    [ drag to reorder ]
-                                </span>
-                                <a class="text-danger pull-right" data-bind="click: $parent.removeContent.bind($parent)">Remove</a>
-                            </div>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <input class="form-control" name="department">
+                                </div>
 
-                            <div class="form-group">
-                                <label>Institution</label>
-                                <input class="form-control" data-bind="value: institution" placeholder="Required">
+                                <div class="form-group">
+                                    <label>Degree</label>
+                                    <input class="form-control" name="degree">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Start date</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <select required autofocus name="startmonth">
+                                                <option value="">-- Month --</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input class="form-control" placeholder="Year" name="startyear" required autofocus>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" data-bind="ifnot: ongoing">
+                                    <label>End date</label>
+                                        <div class="row">
+                                        <div class="col-md-3">
+                                            <select required autofocus name="endmonth">
+                                                <option value="">-- Month --</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input class="form-control" placeholder="Year" name="endyear" required autofocus>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Ongoing</label>
+                                    <input type="checkbox" name="ongoing">
+                                </div>
+
                                 <div data-bind="visible: $parent.showMessages, css:'text-danger'" class="text-danger" style="display: none;">
-                                    <p data-bind="validationMessage: institution" style="display: none;"></p>
+                                    <p data-bind="validationMessage: start" style="display: none;"></p>
+                                    <p data-bind="validationMessage: end" style="display: none;"></p>
+                                    <p data-bind="validationMessage: startYear" style="display: none;"></p>
+                                    <p data-bind="validationMessage: endYear" style="display: none;"></p>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Department</label>
-                                <input class="form-control" data-bind="value: department">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Degree</label>
-                                <input class="form-control" data-bind="value: degree">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Start date</label>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <select class="form-control" data-bind="options: months,
-                                                 optionsCaption: '-- Month --',
-                                                 value: startMonth"><option value="">-- Month --</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input class="form-control" placeholder="Year" data-bind="value: startYear">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group" data-bind="ifnot: ongoing"></div>
-
-
-                            <div class="form-group">
-                                <label>Ongoing</label>
-                                <input type="checkbox" data-bind="checked: ongoing, click: clearEnd">
-                            </div>
-
-                            <div data-bind="visible: $parent.showMessages, css:'text-danger'" class="text-danger" style="display: none;">
-                                <p data-bind="validationMessage: start" style="display: none;"></p>
-                                <p data-bind="validationMessage: end" style="display: none;"></p>
-                                <p data-bind="validationMessage: startYear" style="display: none;"></p>
-                                <p data-bind="validationMessage: endYear" style="display: none;"></p>
-                            </div>
 
                             <hr data-bind="visible: $index() != ($parent.contents().length - 1)" style="display: none;">
 
-                        </div></div>
+                             </div>
+                        </div>
 
-                    <div>
-                        <a class="btn btn-default" data-bind="click: addContent">
-                            Add another
-                        </a>
-                    </div>
+                        <div class="p-t-lg p-b-lg">
 
-                    <div class="p-t-lg p-b-lg">
+                            <button  type="reset" class="btn btn-default" >Discard changes</button>
 
-                        <button type="button" class="btn btn-default" data-bind="click: cancel">Discard changes</button>
+                            <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">Save</button>
 
-                        <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">Save</button>
+                        </div>
+                        <br>
 
-                    </div>
-
-                    <!-- Flashed Messages -->
-                    <div class="help-block">
-                        <p data-bind="html: message, attr: {class: messageClass}"></p>
-                    </div>
-
-                </form>
+                        </form>
 
             </div>
 

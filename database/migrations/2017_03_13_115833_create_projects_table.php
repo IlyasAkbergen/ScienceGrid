@@ -16,10 +16,11 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->text('title');
-            $table->text('body');
-            $table->string('email');
+            $table->text('description');
             $table->integer('category');
+            $table->string('privacyLevel')->nullable();
             $table->timestamps();
+            $table->integer('user_id');
         });
     }
 

@@ -37,3 +37,7 @@ Route::get('/editProfilePage', function (){
 })->name('editProfilePage');
 
 Route::post('/updateProfile', 'UsersController@update');
+
+Route::post('/updateEmployment', 'EmploymentController@create');
+
+Route::post('/updateEducation', 'EducationController@create');

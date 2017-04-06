@@ -13,7 +13,7 @@ class CreateAllowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('allows', function (Blueprint $table) {
+        Schema::create('project_and_contributors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id');
             $table->integer('user_id');
@@ -27,6 +27,6 @@ class CreateAllowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('allows');
+        Schema::dropIfExists('project_and_contributors');
     }
 }
