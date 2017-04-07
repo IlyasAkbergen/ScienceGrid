@@ -6,6 +6,7 @@
     use App\Project_and_contributors; 
     use App\Category;   
     use App\Project;
+    use Auth\Article as BA;
 ?>
 <div class="watermarked">
         <div class="container">
@@ -14,11 +15,14 @@
     <div class="profile-fullname">
         
         <span id="profileFullname" class="h1 overflow m-l-sm">
-            Ilyas
+            {{ $profile->fullName }}
         </span>
+        
+        @if( $id == Auth::user()->id || Auth::user()->role == 'admin' )
         <span class="edit-profile-settings">
-                <a href="{{url('editProfilePage')}}"><span class="glyphicon glyphicon-pencil"></span> Edit your profile</a>
+                <a href="{{url('editProfilePage') .'/'. $id}}"><span class="glyphicon glyphicon-pencil"></span> Edit your profile</a>
         </span>
+        @endif
     </div>
 </div><!-- end-page-header -->
 

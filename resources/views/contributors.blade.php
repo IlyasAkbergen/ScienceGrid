@@ -19,6 +19,34 @@ use App\Project;
 
 
 @section('content')
+
+    <script>
+        $(function () {
+            function closeSearch() {
+                var $form = $('.navbar-collapse form[role="search"].active')
+                $form.find('input').val('');
+                $form.removeClass('active');
+            }
+
+            // Show Search if form is not active // event.preventDefault() is important, this prevents the form from submitting
+            $(document).on('click', '.navbar-collapse form[role="search"]:not(.active) button[type="submit"]', function(event) {
+                event.preventDefault();
+                var $form = $(this).closest('form'),
+                    $input = $form.find('input');
+                $form.addClass('active');
+                $input.focus();
+            });
+            // ONLY FOR DEMO // Please use $('form').submit(function(event)) to track from submission
+            // if your form is ajax remember to call `closeSearch()` to close the search container
+            $(document).on('click', '.navbar-collapse form[role="search"].active button[type="submit"]', function(event) {
+                event.preventDefault();
+                var $form = $(this).closest('form'),
+                    $input = $form.find('input');
+                $('#showSearchTerm').text($input.val());
+                closeSearch()
+            });
+        });
+    </script>
     
     <div class="col-sm-9 col-sm-offset-2">
     <div id="manageContributors" class="scripted" style="display: block;">
@@ -48,35 +76,48 @@ use App\Project;
 
                 <!-- Whom to add -->
                 <div data-bind="if: page() == 'whom'">
-                    <!-- Find contributors -->
-                    <form class="form" data-bind="submit: startSearch">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group m-b-sm">
-                                    <input class="form-control" data-bind="value:query" placeholder="Search by name" autofocus="">
-                                    <span class="input-group-btn">
-                                        <input type="submit" value="Search" class="btn btn-default">
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search by name">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search">
+                                        <span class="sr-only">Search</span>
                                     </span>
-                                </div>
-                                <div class="row search-contributor-links">
-                                    <div class="col-md-12">
-                                        <div style="margin-left: 5px">
-                                            <!-- ko if:parentId --><!-- /ko -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                </button>
+                            </span>
                         </div>
-                    <hr>
-                    </form>
+                    </form>        
+                    </div>
 
-
+                    
                     <!-- Choose which to add -->
                     <div class="row">
+                        <div class="alert alert-success">
+                            <strong>Your Result!</strong> <span name="showSearchTerm" id="showSearchTerm"></span>
+                            <?php 
+                                $dom = new DomDocument();
+                                @$dom->loadHTML($html);
+                                $para = $dom->getElementsByTagName('span');
 
+                               
+                                // if ($para instanceof DOMNodeList) {
+                                    foreach ($para as $node) {
+                                        # $node is a DOMElement instance
+                                        echo 'nodename: ' . $node->nodeName;
+                                        echo 'Node value: ' . $node->nodeValue;
+                                    }
+                                // }
+
+                            ?>
+                        </div>
+                       
                         <div class="col-md-6">
                             <div>
                                 <span class="modal-subheader">Results</span>
+                                
                                 <a data-bind="visible: addAllVisible, click:addAll" style="display: none;">Add all</a>
                             </div>
                             <!-- ko if: notification --><!-- /ko -->

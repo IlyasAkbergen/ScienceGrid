@@ -60,6 +60,17 @@ class ContributorsController extends Controller
         }
     }
 
+    // public function showWithSearch(request $request){
+    //     if(Auth::guest()){
+    //         return redirect('/');
+    //     }else{
+    //         $name = $request->input_search;
+    //         $result = User::where('fullName', 'like', '%' . $name . '%')->get()->fullName;
+
+    //         return view('contributors', compact('result', 'contributors', 'id'));
+    //     }
+    // }
+
     /**
      * Show the form for editing the specified resource.
      *

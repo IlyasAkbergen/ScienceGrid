@@ -15,7 +15,8 @@ class ProfileController extends Controller
     public function show($id){
 
         if( Auth::check() ){
-            $user_and_emp = User_and_employments::where('user_id', User::find($id)->first()->id)->get();
+
+            $user_and_emp = User_and_employments::where('user_id', User::where('id',$id)->first()->id)->get();
         
             $employments = array();
             
@@ -27,7 +28,7 @@ class ProfileController extends Controller
                 }
             }
 
-            $user_and_edu = User_and_educations::where('user_id', User::find($id)->first()->id)->get();
+            $user_and_edu = User_and_educations::where('user_id', User::where('id', $id)->first()->id)->get();
             
             $educations = array();
 
@@ -39,18 +40,21 @@ class ProfileController extends Controller
                 }
             }
 
-            return view('profile', compact('educations', 'employments', 'id'));
+            $profile = User::where('id', $id)->first();
+
+            return view('profile', compact('educations', 'employments', 'profile', 'id'));
         }else{
-            return view('auth.login');
+            return redirect('/');
         }
 
     	
 	}
 
-    public function show_for_edit(){
+    public function show_for_edit($id){
 
-        if( Auth::check() ){
-            $user_and_emp = User_and_employments::where('user_id', User::find(Auth::user()->id)->first()->id)->get();
+        if( $id == Auth::user()->id || Auth::user()->role === 'admin' ){
+           
+            $user_and_emp = User_and_employments::where('user_id', User::where('id', $id)->first()->id)->get();
         
             $employments = array();
             
@@ -62,7 +66,7 @@ class ProfileController extends Controller
                 }
             }
 
-            $user_and_edu = User_and_educations::where('user_id', User::find(Auth::user()->id)->first()->id)->get();
+            $user_and_edu = User_and_educations::where('user_id', User::where('id', $id)->first()->id)->get();
             
             $educations = array();
 
@@ -74,9 +78,11 @@ class ProfileController extends Controller
                 }
             }
 
-            return view('editProfile', compact('educations', 'employments'));
+            $profile = User::where('id', $id)->get();
+
+            return view('editProfile', compact('educations', 'employments', 'profile'));
         }else{
-            return view('auth.login');
+            return redirect('/');
         }
     }
 }

@@ -32,7 +32,7 @@ Route::get('/show/contributors/{id}', 'ContributorsController@show');
 
 Route::get('profile/{id}', 'ProfileController@show');
 
-Route::get('/editProfilePage', 'ProfileController@show_for_edit');
+Route::get('/editProfilePage/{id}', 'ProfileController@show_for_edit');
 
 Route::post('/updateProfile', 'UsersController@update');
 

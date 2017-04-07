@@ -111,7 +111,7 @@
                                         <a href="{{url('profile' . '/' . Auth::user()->id) }}">
                                            <span class="glyphicon glyphicon-user"></span>Profile
                                         </a>
-                                        <a href="">
+                                        <a href="{{url('editProfilePage' . '/' . Auth::user()->id)}}">
                                             <span class="glyphicon glyphicon-cog"></span>
                                             Settings
                                         </a>
