@@ -43,3 +43,5 @@ Route::post('/updateEducation', 'EducationController@create');
 Route::get('/deleteEmployment/{id}', 'EmploymentController@delete');
 
 Route::get('/deleteEducation/{id}', 'EducationController@delete');
+
+Route::post('AjaxPage', 'UsersController@search');

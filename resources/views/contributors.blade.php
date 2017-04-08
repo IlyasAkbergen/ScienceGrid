@@ -20,33 +20,7 @@ use App\Project;
 
 @section('content')
 
-    <script>
-        $(function () {
-            function closeSearch() {
-                var $form = $('.navbar-collapse form[role="search"].active')
-                $form.find('input').val('');
-                $form.removeClass('active');
-            }
-
-            // Show Search if form is not active // event.preventDefault() is important, this prevents the form from submitting
-            $(document).on('click', '.navbar-collapse form[role="search"]:not(.active) button[type="submit"]', function(event) {
-                event.preventDefault();
-                var $form = $(this).closest('form'),
-                    $input = $form.find('input');
-                $form.addClass('active');
-                $input.focus();
-            });
-            // ONLY FOR DEMO // Please use $('form').submit(function(event)) to track from submission
-            // if your form is ajax remember to call `closeSearch()` to close the search container
-            $(document).on('click', '.navbar-collapse form[role="search"].active button[type="submit"]', function(event) {
-                event.preventDefault();
-                var $form = $(this).closest('form'),
-                    $input = $form.find('input');
-                $('#showSearchTerm').text($input.val());
-                closeSearch()
-            });
-        });
-    </script>
+    
     
     <div class="col-sm-9 col-sm-offset-2">
     <div id="manageContributors" class="scripted" style="display: block;">
@@ -78,58 +52,86 @@ use App\Project;
                 <div data-bind="if: page() == 'whom'">
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search by name">
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-search">
-                                        <span class="sr-only">Search</span>
-                                    </span>
-                                </button>
-                            </span>
+                        <div class="navbar-form" role="search" id="target">
+                            {{ csrf_field() }}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search by name" name="search_name" id="search_name">
+                                <span class="input-group-btn">
+                                    <div class="btn btn-default" id="submitContactBtn">
+                                        <span class="glyphicon glyphicon-search">
+                                            <span class="sr-only">Search</span>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>        
+
+<!--                         <div id="showResult" class="showResult">
+
                         </div>
-                    </form>        
+
+ -->                        
+    
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#submitContactBtn').click(function(){ 
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+
+
+                                    $.post('http://localhost/project/public/AjaxPage', {
+
+                                        search_name: $('#search_name').val()
+
+                                    },  function(response){  
+                                            var output = "";
+                                            for (var i = 0; i < response.length; i+=3) {
+                                                output = output + '<tr><td><button type="button" class="btn btn-success btn-sm m-l-md col-sm-3"><span class="glyphicon glyphicon-plus" id="add"></span></button><div class="col-sm-9"><a href="../../profile/' + response[i] + '">' + response[i+1] + '</a><p>' + response[i+2] + '</p></div></td></tr>';
+                                            }
+                                            $('#showResult').html(output);
+                                        }
+
+
+                                    );
+                                });
+                                   
+                            });
+                        </script>
                     </div>
+
 
                     
                     <!-- Choose which to add -->
                     <div class="row">
-                        <div class="alert alert-success">
-                            <strong>Your Result!</strong> <span name="showSearchTerm" id="showSearchTerm"></span>
-                            <?php 
-                                $dom = new DomDocument();
-                                @$dom->loadHTML($html);
-                                $para = $dom->getElementsByTagName('span');
-
-                               
-                                // if ($para instanceof DOMNodeList) {
-                                    foreach ($para as $node) {
-                                        # $node is a DOMElement instance
-                                        echo 'nodename: ' . $node->nodeName;
-                                        echo 'Node value: ' . $node->nodeValue;
-                                    }
-                                // }
-
-                            ?>
-                        </div>
+                        <!-- <div class="alert alert-success">
+                            <strong>Your Result!</strong> <span value="" name="showSearchTerm" id="showSearchTerm"></span>
+                        </div> -->
                        
                         <div class="col-md-6">
                             <div>
                                 <span class="modal-subheader">Results</span>
                                 
+                                <table class="table-condensed">
+                                <thead data-bind="visible: selection().length" style="display: none;">
+                                    <tr><th width="10%"></th>
+                                    <th width="15%"></th>
+                                    <th>Name</th>
+                                    <th>
+                                        Permissions
+                                        <i class="fa fa-question-circle permission-info" data-toggle="popover" data-title="Permission Information" data-container="#addContributors" data-html="true" data-content="<dl><dt>Read</dt><dd><ul><li>View project content and comment</li></ul></dd><dt>Read + Write</dt><dd><ul><li>Read privileges</li> <li>Add and configure components</li> <li>Add and edit content</li></ul></dd><dt>Administrator</dt><dd><ul><li>Read and write privileges</li><li>Manage contributor</li><li>Delete and register project</li><li>Public-private settings</li></ul></dd></dl>" data-original-title="" title=""></i>
+                                    </th>
+                                </tr></thead>
+                                <tbody id="showResult"></tbody>
+                                </table>
+
                                 <a data-bind="visible: addAllVisible, click:addAll" style="display: none;">Add all</a>
                             </div>
-                            <!-- ko if: notification --><!-- /ko -->
-                            <!-- ko if: doneSearching --><!-- /ko -->
-                            <!-- Link to add non-registered contributor -->
-                            <div class="help-block">
-                                <div data-bind="if: foundResults"></div>
-                                <div data-bind="if: parentPagination"></div>
-                                <div data-bind="if: showLoading"></div>
-                                <div data-bind="if: noResults"></div>
-                                <div data-bind="if: emailSearch"></div>
-                            </div>
+
+                           
+                          
                         </div><!-- ./col-md -->
 
                         <div class="col-md-6">
