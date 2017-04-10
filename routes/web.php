@@ -45,3 +45,5 @@ Route::get('/deleteEmployment/{id}', 'EmploymentController@delete');
 Route::get('/deleteEducation/{id}', 'EducationController@delete');
 
 Route::post('AjaxPage', 'UsersController@search');
+
+Route::post('addRightCol', 'UsersController@addRightCol');

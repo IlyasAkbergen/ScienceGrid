@@ -20,8 +20,6 @@ use App\Project;
 
 @section('content')
 
-    
-    
     <div class="col-sm-9 col-sm-offset-2">
     <div id="manageContributors" class="scripted" style="display: block;">
         <h3> Contributors
@@ -65,13 +63,7 @@ use App\Project;
                                 </span>
                             </div>
                         </div>        
-
-<!--                         <div id="showResult" class="showResult">
-
-                        </div>
-
- -->                        
-    
+                        
                         <script type="text/javascript">
                             $(document).ready(function() {
                                 $('#submitContactBtn').click(function(){ 
@@ -88,71 +80,100 @@ use App\Project;
 
                                     },  function(response){  
                                             var output = "";
-                                            for (var i = 0; i < response.length; i+=3) {
-                                                output = output + '<tr><td><button type="button" class="btn btn-success btn-sm m-l-md col-sm-3"><span class="glyphicon glyphicon-plus" id="add"></span></button><div class="col-sm-9"><a href="../../profile/' + response[i] + '">' + response[i+1] + '</a><p>' + response[i+2] + '</p></div></td></tr>';
+                                            for (var i = 0; i < response.length; i+=3) {    
+                                                output = output + '<tr><td><button onClick="AddRightCol(' + response[i] +  ');" type="button" id="addRightCol" class="btn btn-success btn-sm m-l-md col-sm-3" value="' + response[i] + '"><span class="glyphicon glyphicon-plus" id="add"></span></button><div class="col-sm-9"><a target="blank" href="../../profile/' + response[i] + '">' + response[i+1] + '</a><p>' + response[i+2] + '</p></div></td></tr>';
                                             }
-                                            $('#showResult').html(output);
+                                            $('.showResult').html(output);
                                         }
 
-
                                     );
+
                                 });
-                                   
+                                      
                             });
+
+                           
+                            
                         </script>
+
                     </div>
 
 
                     
                     <!-- Choose which to add -->
                     <div class="row">
-                        <!-- <div class="alert alert-success">
-                            <strong>Your Result!</strong> <span value="" name="showSearchTerm" id="showSearchTerm"></span>
-                        </div> -->
-                       
                         <div class="col-md-6">
                             <div>
                                 <span class="modal-subheader">Results</span>
                                 
                                 <table class="table-condensed">
-                                <thead data-bind="visible: selection().length" style="display: none;">
-                                    <tr><th width="10%"></th>
-                                    <th width="15%"></th>
-                                    <th>Name</th>
-                                    <th>
-                                        Permissions
-                                        <i class="fa fa-question-circle permission-info" data-toggle="popover" data-title="Permission Information" data-container="#addContributors" data-html="true" data-content="<dl><dt>Read</dt><dd><ul><li>View project content and comment</li></ul></dd><dt>Read + Write</dt><dd><ul><li>Read privileges</li> <li>Add and configure components</li> <li>Add and edit content</li></ul></dd><dt>Administrator</dt><dd><ul><li>Read and write privileges</li><li>Manage contributor</li><li>Delete and register project</li><li>Public-private settings</li></ul></dd></dl>" data-original-title="" title=""></i>
-                                    </th>
-                                </tr></thead>
-                                <tbody id="showResult"></tbody>
+                                    <thead></thead>
+                                    <tbody id="showResult" class="showResult">
+                                        {{ csrf_field() }}
+                                    </tbody>
                                 </table>
 
-                                <a data-bind="visible: addAllVisible, click:addAll" style="display: none;">Add all</a>
+                                <!-- <a data-bind="visible: addAllVisible, click:addAll" style="display: none;">Add all</a> -->
                             </div>
-
-                           
                           
                         </div><!-- ./col-md -->
 
                         <div class="col-md-6">
                             <div>
                                 <span class="modal-subheader">Adding</span>
-                                <a data-bind="visible: removeAllVisible, click:removeAll" style="display: none;">Remove all</a>
+                                <!-- <a data-bind="visible: removeAllVisible, click:removeAll">Remove all</a> -->
                             </div>
 
                             <!-- TODO: Duplication here: Put this in a KO template -->
                             <table class="table-condensed">
-                                <thead data-bind="visible: selection().length" style="display: none;">
-                                    <tr><th width="10%"></th>
+                                <thead>
+                                    <!-- <tr><th width="10%"></th>
                                     <th width="15%"></th>
                                     <th>Name</th>
                                     <th>
                                         Permissions
                                         <i class="fa fa-question-circle permission-info" data-toggle="popover" data-title="Permission Information" data-container="#addContributors" data-html="true" data-content="<dl><dt>Read</dt><dd><ul><li>View project content and comment</li></ul></dd><dt>Read + Write</dt><dd><ul><li>Read privileges</li> <li>Add and configure components</li> <li>Add and edit content</li></ul></dd><dt>Administrator</dt><dd><ul><li>Read and write privileges</li><li>Manage contributor</li><li>Delete and register project</li><li>Public-private settings</li></ul></dd></dl>" data-original-title="" title=""></i>
-                                    </th>
-                                </tr></thead>
-                                <tbody data-bind="foreach:{data:selection, as: 'contributor', afterRender:makeAfterRender()}"></tbody>
+                                    </th> 
+                                </tr>-->
+                            </thead>
+                                <tbody id="showAdding">
+    
+                                </tbody>
                             </table>
+                            <!-- <button id="addRightColasd">ASDASD</button> -->
+                            <script type="text/javascript">
+                          
+                                function AddRightCol(id) {
+                                 
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+
+                                    $.post('http://localhost/project/public/addRightCol', {
+
+                                        id: id
+
+                                    },  function(response){  
+                                            var string = "foo", expr = "/oo/";
+                                            string.match(expr);
+                                            var output = "";
+
+                                            var tbody = document.getElementById('showAdding');
+                                            output = '<tr><td><button onClick="" type="button" id="addRightCol" class="btn btn-danger btn-sm m-l-md col-sm-3" value="' + response[0] + '"><span class="glyphicon glyphicon-minus"></span></button><div class="col-sm-9"><a target="blank" href="../../profile/' + response[0] + '">' + response[1] + '</a><p>' + response[2] + '</p></div></td></tr>';
+                                            
+                                            if(!tbody.innerHTML.match(response[1])){
+                                                tbody.innerHTML = tbody.innerHTML + output;
+                                            }
+                                            
+                                        }
+
+                                    );
+                                 
+                                }
+
+                            </script>
                         </div>
 
                     </div>

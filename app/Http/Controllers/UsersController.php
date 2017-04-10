@@ -43,4 +43,21 @@ class UsersController extends Controller
         $dataJson = json_encode($data);
         return $data;
     }
+
+    public function addRightCol(request $request){
+
+        $result = $request->session()->all();//получаем данные из сессии
+        $token = $result['_token'];
+        $result = User::where('id', $request->id)->first();
+
+        $data = array();
+    
+        $data[0] = $result->id;
+        $data[1] = $result->fullName;
+        $data[2] = $result->email;
+        
+        $dataJson = json_encode($data);
+        return $data;
+
+    }
 }

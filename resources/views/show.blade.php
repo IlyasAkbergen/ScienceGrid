@@ -2,9 +2,10 @@
 use App\User;
 use App\Project_and_contributors;
 use App\Category;
+use Auth\Article as BA;
 ?>
 @extends('layouts.app')
-
+@if( $project->user_id === Auth::user()->id || Auth::user()->role === 'admin' )
 @section('settings_contributors')
     <nav class="navbar">
             <div class="container">
@@ -15,7 +16,7 @@ use App\Category;
             </div>
         </nav>
 @endsection
-
+@endif
 
 @section('content')
     <div class="container">
