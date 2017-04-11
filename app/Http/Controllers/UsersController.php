@@ -35,6 +35,9 @@ class UsersController extends Controller
         $data = array();
         $i=0;
         foreach ( $result as $a ) {
+            if( $a->id == Auth::user()->id ){
+                continue;
+            }
             $data[$i] = $a->id;
             $data[$i+1] = $a->fullName;
             $data[$i+2] = $a->email;

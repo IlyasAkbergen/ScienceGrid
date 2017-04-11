@@ -30,30 +30,35 @@ class Project_and_contributorsController extends Controller
     public function create(Request $request)
     {
    
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:255'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'email' => 'required|email|max:255'
+        // ]);
 
-        if ($validator->fails()) {
-            return redirect('/')
-                ->withInput()
-                ->withErrors($validator);
-        }
+        // if ($validator->fails()) {
+        //     return redirect('/')
+        //         ->withInput()
+        //         ->withErrors($validator);
+        // }
 
-        $uID = User::getid($request->email);
+        $ids = array();
+        $ids = explode(" ", $request->cString);
 
-        if( Project_and_contributors::where('project_id', $request->id)->where('user_id', $uID)->count('user_id') > 0){
-            
-           return redirect('/')->withErrors('This user had already been added.');
         
-        }else{
+        foreach ($ids as $uID) {
+            if( Project_and_contributors::where('project_id', $request->pID)->where('user_id', $uID)->count('user_id') > 0){
+                
+               continue;
+            
+            }
+        
             $allow = new Project_and_contributors; 
-            $allow->project_id = $request->id;
+            $allow->project_id = $request->pID;
             $allow->user_id = $uID; 
             $allow->save();
-            return redirect('/');
+            
         }
-        
+
+        return redirect('/');
     }
 
 

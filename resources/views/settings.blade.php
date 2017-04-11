@@ -22,6 +22,7 @@
 		<div class="panel panel-default">
 		    <span id="configureNodeAnchor" class="anchor"></span>
 		    <div class="panel-heading clearfix">
+		    	<h3>{{ $project->title }}</h3>
 		        <h3 id="configureNode" class="panel-title">Project</h3>
 		    </div>
 

@@ -22,6 +22,7 @@ use App\Project;
 
     <div class="col-sm-9 col-sm-offset-2">
     <div id="manageContributors" class="scripted" style="display: block;">
+        <h3>{{ Project::where('id', $id)->first()->title }}</h3>
         <h3> Contributors
             <!-- ko if: canEdit -->
                 <!-- <a href="" data-toggle="modal" class="btn btn-success btn-sm m-l-md">
@@ -125,6 +126,7 @@ use App\Project;
                             </div>
 
                             <!-- TODO: Duplication here: Put this in a KO template -->
+
                             <table class="table-condensed">
                                 <thead>
                                     <!-- <tr><th width="10%"></th>
@@ -136,15 +138,27 @@ use App\Project;
                                     </th> 
                                 </tr>-->
                             </thead>
+
                                 <tbody id="showAdding">
+
+                                
+
+                                <p id="cString" style="display: none;"></p>
+                                    <p id="myphp" style="display: none;"></p>
     
                                 </tbody>
+                                
                             </table>
-                            <!-- <button id="addRightColasd">ASDASD</button> -->
+                            <br>  
+                                <button id="addAll" onClick="sendContributors({{$id}})" class="btn btn-success btn-sm m-l-md" style="visibility: hidden;">
+                                    Add all
+                                </button>  
+                             
+                            </form>
                             <script type="text/javascript">
-                          
+                                
                                 function AddRightCol(id) {
-                                 
+                                      
                                     $.ajaxSetup({
                                         headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -156,21 +170,56 @@ use App\Project;
                                         id: id
 
                                     },  function(response){  
-                                            var string = "foo", expr = "/oo/";
-                                            string.match(expr);
                                             var output = "";
 
                                             var tbody = document.getElementById('showAdding');
-                                            output = '<tr><td><button onClick="" type="button" id="addRightCol" class="btn btn-danger btn-sm m-l-md col-sm-3" value="' + response[0] + '"><span class="glyphicon glyphicon-minus"></span></button><div class="col-sm-9"><a target="blank" href="../../profile/' + response[0] + '">' + response[1] + '</a><p>' + response[2] + '</p></div></td></tr>';
+                                            output = '<tr id="row' + response[0] + '"><td><button onClick="removeRightCol(' + response[0] + ')" type="button" id="addRightCol" class="btn btn-danger btn-sm m-l-md col-sm-3" value="' + response[0] + '"><span class="glyphicon glyphicon-minus"></span></button><div class="col-sm-9"><a target="blank" href="../../profile/' + response[0] + '">' + response[1] + '</a><p>' + response[2] + '</p></div></td></tr>';
                                             
                                             if(!tbody.innerHTML.match(response[1])){
                                                 tbody.innerHTML = tbody.innerHTML + output;
                                             }
+
+                                            document.getElementById("addAll").style.visibility = "visible";
+                                            var par = document.getElementById("cString");
+                                            par.innerHTML = par.innerHTML + " " + response[0]; 
                                             
                                         }
 
                                     );
-                                 
+                                }
+
+                                function removeRightCol(id) {
+                                    var elem = document.getElementById('row'+id);
+                                    elem.parentNode.removeChild(elem);
+
+                                    var str = document.getElementById("cString").innerHTML; 
+                                    var res = str.replace(id, "");
+                                    document.getElementById("cString").innerHTML = res;
+                                   
+                                    return false;
+                                }
+
+                                function sendContributors(id){
+                                    var par = document.getElementById("cString");
+                                    cString =  par.innerHTML;
+                            
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+
+                                    $.post('http://localhost/project/public/allow', {
+
+                                        pID: id,
+                                        cString: cString
+
+                                    },  function(){  
+                                            
+                                            window.location.replace("http://localhost/project/public/");
+
+                                        }
+                                    );
                                 }
 
                             </script>
