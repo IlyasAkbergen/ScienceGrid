@@ -45,9 +45,11 @@ use Auth\Article as BA;
             <div class="col-sm-12">Date created: {{ $project->created_at . " | "}} Last updated: {{ $project->updated_at }} </div>
             <div class="col-sm-12">Category: {{ Category::where('id', $project->category)->first()->name }}</div>
             <div class="col-sm-12">Description: {{ $project->description }}</div>
-            <!-- <div class="col-sm-2"> {{ $project->created_at . " | "}} </div> -->
-           <!--  <div class="col-sm-2">Last updated:</div>
-            <div class="col-sm-2    "> {{ $project->updated_at }} </div> -->
+
+            @if($project->file_path != NULL)
+                <div class="col-sm-12">File: <a href="{{ url('download/' . $project->file_path) }}"><span class="glyphicon glyphicon-paperclip"> </span>{{' '.$project->file_path}}</a></div>
+            @endif
+           
         </div>
     </div>
 @endsection

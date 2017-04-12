@@ -47,3 +47,5 @@ Route::get('/deleteEducation/{id}', 'EducationController@delete');
 Route::post('AjaxPage', 'UsersController@search');
 
 Route::post('addRightCol', 'UsersController@addRightCol');
+
+Route::get('download/{filename}', 'FileController@download');

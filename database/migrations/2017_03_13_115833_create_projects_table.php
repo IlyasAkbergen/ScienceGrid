@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->string('privacyLevel')->nullable();
             $table->timestamps();
             $table->integer('user_id');
+            $table->string('file_path')->nullable();
         });
     }
 

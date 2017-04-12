@@ -144,8 +144,8 @@ use App\Project;
                                 
 
                                 <p id="cString" style="display: none;"></p>
-                                    <p id="myphp" style="display: none;"></p>
-    
+                                <p id="myphp" style="display: none;"></p>
+                                <p id="pers" style="display: none;"></p>
                                 </tbody>
                                 
                             </table>
@@ -173,7 +173,7 @@ use App\Project;
                                             var output = "";
 
                                             var tbody = document.getElementById('showAdding');
-                                            output = '<tr id="row' + response[0] + '"><td><button onClick="removeRightCol(' + response[0] + ')" type="button" id="addRightCol" class="btn btn-danger btn-sm m-l-md col-sm-3" value="' + response[0] + '"><span class="glyphicon glyphicon-minus"></span></button><div class="col-sm-9"><a target="blank" href="../../profile/' + response[0] + '">' + response[1] + '</a><p>' + response[2] + '</p></div></td></tr>';
+                                            output = '<tr id="row' + response[0] + '"><td><button onClick="removeRightCol(' + response[0] + ')" type="button" id="addRightCol" class="btn btn-danger btn-sm m-l-md col-sm-3" value="' + response[0] + '"><span class="glyphicon glyphicon-minus"></span></button><div class="col-sm-9"><a target="blank" href="../../profile/' + response[0] + '">' + response[1] + '</a><p>' + response[2] + '</p></td><td><select class="permission' + response[0] + '" id="permission' + response[0] + '" onchange="changeSelect(' + response[0] + ')"><option value="1">Read</option><option value="2">Read + Write</option></select>  </div></td></tr>';
                                             
                                             if(!tbody.innerHTML.match(response[1])){
                                                 tbody.innerHTML = tbody.innerHTML + output;
@@ -181,28 +181,86 @@ use App\Project;
 
                                             document.getElementById("addAll").style.visibility = "visible";
                                             var par = document.getElementById("cString");
-                                            par.innerHTML = par.innerHTML + " " + response[0]; 
-                                            
-                                        }
+                                            if(!par.innerHTML.match(response[0])){
+                                                par.innerHTML = par.innerHTML + " " + response[0]; 
+                                            }
+                                            var sel = document.getElementById('permission'+id);
+                                            var pers = document.getElementById('pers');
+                                            var select = sel.options[sel.selectedIndex].value;
 
+                                            if( pers.innerHTML == "" ){
+                                                pers.innerHTML += 'id'+id + ':' + select + '  '; 
+                                            }else{
+                                                // pers.innerHTML = pers.innerHTML + 'id'+id + ':' + select + '/n';
+
+                                                var str = pers.innerHTML;
+                                                if(str.match('id'+id+':1')){
+                                                    var res = str.replace('id'+id+':2', 'id'+id+':1');  
+                                                    pers.innerHTML = res;
+                                                }else if(str.match('id'+id+':2')){
+                                                    var res = str.replace('id'+id+':1', 'id'+id+':2');  
+                                                    pers.innerHTML = res;
+                                                }else{
+                                                    pers.innerHTML += 'id'+id + ':' + select + '  '; 
+                                                }
+                                            }
+                                        }
                                     );
                                 }
 
+                                function changeSelect(id){
+                                    var sel = document.getElementById('permission'+id);
+                                    var pers = document.getElementById('pers');
+                                    var select = sel.options[sel.selectedIndex].value;
+
+                                    if( pers.innerHTML == "" ){
+                                        pers.innerHTML += 'id'+id + ':' + select + '  '; 
+                                    }else{
+                                        // pers.innerHTML = pers.innerHTML + 'id'+id + ':' + select + '/n';
+                                        var str = pers.innerHTML;
+                                        if(str.match('id'+id+':1')){
+                                            var res = str.replace('id'+id+':1', 'id'+id+':2');  
+                                            pers.innerHTML = res;
+                                        }else if(str.match('id'+id+':2')){
+                                            var res = str.replace('id'+id+':2', 'id'+id+':1');  
+                                            pers.innerHTML = res;
+                                        }else{
+                                            pers.innerHTML += 'id'+id + ':' + select + '  '; 
+                                        }
+                                    }
+
+                                    return 0;
+                                }
+                                    
                                 function removeRightCol(id) {
                                     var elem = document.getElementById('row'+id);
                                     elem.parentNode.removeChild(elem);
 
                                     var str = document.getElementById("cString").innerHTML; 
-                                    var res = str.replace(id, "");
-                                    document.getElementById("cString").innerHTML = res;
+                                    var res1 = str.replace(id, "");
+                                    document.getElementById("cString").innerHTML = res1;
+
+                                    var str2 = document.getElementById("pers").innerHTML;
                                    
+                                    if(str2.match('id'+id+':1')){
+                                        var res2 = str2.replace('id'+id+':1', '');  
+                                    }else if(str.match('id'+id+':2')){
+                                        var res2 = str.replace('id'+id+':2', '');  
+                                    }
+                                    
+                                    document.getElementById('pers').innerHTML = res2;
+
                                     return false;
                                 }
 
+                               
+
                                 function sendContributors(id){
                                     var par = document.getElementById("cString");
+                                    var sel = document.getElementById('pers');
                                     cString =  par.innerHTML;
-                            
+                                    pers = sel.innerHTML;
+                                
                                     $.ajaxSetup({
                                         headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -212,11 +270,12 @@ use App\Project;
                                     $.post('http://localhost/project/public/allow', {
 
                                         pID: id,
-                                        cString: cString
+                                        cString: cString,
+                                        pers: pers
 
                                     },  function(){  
                                             
-                                            window.location.replace("http://localhost/project/public/");
+                                            // window.location.replace("http://localhost/project/public/");
 
                                         }
                                     );

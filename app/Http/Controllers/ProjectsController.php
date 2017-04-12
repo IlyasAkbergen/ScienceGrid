@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use App\Project;
 use App\Project_and_contributors;
 use App\Category;
@@ -36,7 +37,9 @@ class ProjectsController extends Controller
     }
 
     public function create(Request $request) {
-	
+		
+		$destinationPath = public_path() . '/uploads/';
+
 	    $validator = Validator::make($request->all(), [
 	        'title'  => 'required|max:255'
 	    ]);
@@ -52,11 +55,22 @@ class ProjectsController extends Controller
 	    $project->description = $request->description;
 	    $project->user_id = Auth::user()->id;
 	    $project->category = $request->category; 
-	    // Category::where('name', $category)->first()->id;
+	    
+	    
+	    if($request->hasFile('uploadFile')) {
+            
+        	$file = $request->file('uploadFile');
+        	
+        	if($file->isValid()) {
+                $file->move(public_path('uploads\\'), $file->getClientOriginalName());
+            }
+		}
+
+		$project->file_path = $request->title . '_' . $file->getClientOriginalName();
+
 	    $project->save();
 
 	    return redirect('/');
-	
 	}
 
 	public function delete($id) {

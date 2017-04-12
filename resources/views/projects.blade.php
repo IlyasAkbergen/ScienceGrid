@@ -33,7 +33,7 @@
                 <!-- Whom to add -->
                 <div data-bind="if: page() == 'whom'">
                     <!-- Find contributors -->
-                    <form class="form" action="{{url('project')}}" method="POST">
+                    <form class="form" action="{{url('project')}}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="row">
@@ -41,12 +41,12 @@
                                 
                                 <div class="input-group m-b-lg">
                                     <label for="task-name" class="col-sm-2 control-label">Title:</label>
-                                    <input class="form-control col-sm-2" name="title" id="task-name">
+                                    <input class="form-control col-sm-2" name="title" id="task-name" required>
                                     <label for="description" class="col-sm-2 control-label">Description:</label>
-                                    <input class="form-control col-sm-2" name="description" id="description">
+                                    <input class="form-control col-sm-2" name="description" id="description" required>
                                     <label for="category[]" class="col-sm-4 control-label">Category:</label>
                                     
-                                    <select name="category" class="form-control" id="category[]">
+                                    <select name="category" class="form-control" id="category[]" required>
                                         
                                         <?php
 
@@ -62,7 +62,11 @@
 
                                     </select>
 
-                                    <br><br><br> <input type="submit" value="Create" style="margin-top: 20px;" class="btn btn-success col-sm-4">
+                                    <br><br><br> 
+                                    <label for="fileToUpload" class="col-sm-5 control-label">Upload file:</label>
+                                    
+                                    <input id="fileToUpload" name="uploadFile" type="file">
+                                    <input type="submit" value="Create" style="margin-top: 20px;" class="btn btn-success col-sm-4">
                                     
                                 </div>
 

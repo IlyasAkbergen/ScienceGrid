@@ -30,20 +30,11 @@ class Project_and_contributorsController extends Controller
     public function create(Request $request)
     {
    
-        // $validator = Validator::make($request->all(), [
-        //     'email' => 'required|email|max:255'
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return redirect('/')
-        //         ->withInput()
-        //         ->withErrors($validator);
-        // }
-
         $ids = array();
         $ids = explode(" ", $request->cString);
 
-        
+        die($request->perms);
+
         foreach ($ids as $uID) {
             if( Project_and_contributors::where('project_id', $request->pID)->where('user_id', $uID)->count('user_id') > 0){
                 
@@ -54,6 +45,7 @@ class Project_and_contributorsController extends Controller
             $allow = new Project_and_contributors; 
             $allow->project_id = $request->pID;
             $allow->user_id = $uID; 
+            $allow->permission = $request->select;
             $allow->save();
             
         }
