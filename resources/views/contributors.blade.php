@@ -357,7 +357,7 @@ use App\Project;
                             <?php
                                 $user_id = Project::where('id', $id)->first()->user_id;
                             ?>
-                            <i><b><a class="name-search" href="/83akk/">{{ User::where('id', $user_id)->first()->fullName }}
+                            <i><b><a class="name-search" href="{{ url('profile/' . User::where('id', $user_id)->first()->id) }}">{{ User::where('id', $user_id)->first()->fullName }}
                             </a></b></i>
                         </span>
                       
@@ -368,6 +368,7 @@ use App\Project;
                 </tr>
                
                 @foreach ($contributors as $contributor) 
+
                 <tr class="contrib">
                 <td >
                     <!-- ko if: ($parent === 'contrib' && $root.isSortable()) -->
@@ -375,9 +376,12 @@ use App\Project;
                       
                     <span class="fa toggle-icon fa-angle-down"></span>
                     <div class="card-header">
+                        <?php  
+                            $uID = User::where('fullName', $contributor)->first()->id;
+                        ?>
                         <span data-bind="ifnot: profileUrl"></span>
                         <span data-bind="if: profileUrl">
-                            <a class="name-search" href="/83akk/">{{ $contributor }}</a>
+                            <a class="name-search" href="{{ url('profile/' . $uID) }}">{{ $contributor }}</a>
                         </span>
                       
                     </div>
@@ -397,7 +401,6 @@ use App\Project;
                                     
                                     <div class="col col-sm-3">
                                     <?php 
-                                        $uID = User::where('fullName', $contributor)->first()->id;
                                         $perm = Project_and_contributors::where('project_id', $id)->where('user_id', $uID)->first()->permission;
                                         
                                         if($perm == 'Read'){
@@ -419,8 +422,8 @@ use App\Project;
                                     </div>                                
 
                                     <button type="submit" class="btn btn-danger btn-sm m l-md" data-toggle="modal">
-                                            Remove
-                                    </button>
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                    </button>  Remove
                                   
                                 </form>
                         <!-- /ko -->

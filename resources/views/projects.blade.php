@@ -97,14 +97,18 @@
         </div>
         
 
+
         @if (count($projects) > 0)
         <div class="panel panel-default" style="margin-top: 10px;">
             <div class="panel-body">
-                <table class="table table-striped task-table" id="example">
+                <div class="table-responsive">
+                <table class="table table-striped task-table" cellspacing="0" id="example">
                     <thead>
+                        <tr>
                         <th class="col-sm-3">Title</th>
                         <th class="col-sm-3">Contributors</th>
                         <th class ="col-sm-3">Modified</th> 
+                        </tr>
                     </thead>
                     <tbody>
                         @foreach ($projects as $project)
@@ -140,6 +144,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     @endif
