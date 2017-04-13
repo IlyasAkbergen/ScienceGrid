@@ -17,7 +17,7 @@ class CreateAllowsTable extends Migration
             $table->increments('id');
             $table->integer('project_id');
             $table->integer('user_id');
-            $table->integer('permissions');
+            $table->string('permissions');
         });
     }
 

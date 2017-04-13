@@ -32,7 +32,7 @@ use Auth\Article as BA;
                     <li><b style="color: blue;"><?php echo User::getUsername($project->user_id) . "\n"; ?></b><br> </li>
                     <?php  
                       $names = array(); 
-                      $names = Project_and_contributors::getEmail($project->id); 
+                      $names = Project_and_contributors::getContributor($project->id); 
                     foreach ($names as $names) {
                         ?><li> <?php echo $names;?> </li><?php
                                 

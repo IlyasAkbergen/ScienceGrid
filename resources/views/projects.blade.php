@@ -120,7 +120,7 @@
                                     <?php 
                                         ?><b style="color: blue;"><?php echo User::getUsername($project->user_id) . "\n"; ?></b><br><?php
                                         $emails = array(); 
-                                        $emails = Project_and_contributors::getEmail($project->id); 
+                                        $emails = Project_and_contributors::getContributor($project->id); 
                                         
                                         foreach ($emails as $email) {
                                             echo $email . "\n";

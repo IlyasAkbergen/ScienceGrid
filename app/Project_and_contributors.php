@@ -9,6 +9,7 @@ class Project_and_contributors extends Model
 {
 
 	public $timestamps = false;
+	protected $fillable = ['permission'];
 
 	public function project(){
 
@@ -16,7 +17,7 @@ class Project_and_contributors extends Model
 
 	}
 
-    public static function getEmail($pID) {
+    public static function getContributor($pID) {
 	
 		$allowed_results = Project_and_contributors::where('project_id',$pID)->get();
 		$output = '';
@@ -52,6 +53,12 @@ class Project_and_contributors extends Model
 		}
 
 		return $projects;
+
+	}
+
+	public static function getPerm($pID, $uID){
+
+		return Project_and_contributors::where('project_id', $pID)->where('user_id',$uID)->first()->permission;
 
 	}
 

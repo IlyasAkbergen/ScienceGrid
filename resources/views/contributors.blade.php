@@ -155,8 +155,7 @@ use App\Project;
                                 </button>  
                              
                             </form>
-                            <script type="text/javascript">
-                                
+                            <script type="text/javascript">                                 
                                 function AddRightCol(id) {
                                       
                                     $.ajaxSetup({
@@ -241,14 +240,14 @@ use App\Project;
                                     document.getElementById("cString").innerHTML = res1;
 
                                     var str2 = document.getElementById("pers").innerHTML;
-                                   
+                                    
                                     if(str2.match('id'+id+':1')){
-                                        var res2 = str2.replace('id'+id+':1', '');  
-                                    }else if(str.match('id'+id+':2')){
-                                        var res2 = str.replace('id'+id+':2', '');  
+                                        str2 = str2.replace('id'+id+':1', '');  
+                                    }else if(str2.match('id'+id+':2')){
+                                        str2 = str2.replace('id'+id+':2', '');  
                                     }
                                     
-                                    document.getElementById('pers').innerHTML = res2;
+                                    document.getElementById('pers').innerHTML = str2;
 
                                     return false;
                                 }
@@ -275,7 +274,7 @@ use App\Project;
 
                                     },  function(){  
                                             
-                                            // window.location.replace("http://localhost/project/public/");
+                                            window.location.replace("http://localhost/project/public/");
 
                                         }
                                     );
@@ -339,7 +338,7 @@ use App\Project;
                 <tr>
                     <th class="responsive-table-hide sortable" data-bind="css: {sortable: ($data === 'contrib' &amp;&amp; $root.isSortable())}">Name
                     </th>
-                    <th></th>
+                    <th>Permission</th>
                    
                     <th class="remove"></th>
                 </tr>
@@ -395,8 +394,30 @@ use App\Project;
                                     ?>
                                     
                                     <input type="hidden" value="{{$email}}" name="email">
-                                                                    
                                     
+                                    <div class="col col-sm-3">
+                                    <?php 
+                                        $uID = User::where('fullName', $contributor)->first()->id;
+                                        $perm = Project_and_contributors::where('project_id', $id)->where('user_id', $uID)->first()->permission;
+                                        
+                                        if($perm == 'Read'){
+                                            $perm2 = 'Read+Write';        
+                                        }else if($perm == 'Read+Write'){
+                                            $perm2 = 'Read';
+                                        }
+                                    ?>
+                                    <select class="form-control" id="changePermission{{ User::where('fullName', $contributor)->first()->id }}" onchange="changePermission({{ User::where('fullName', $contributor)->first()->id }},{{ $id }})">
+                                        <option value="{{$perm}}">
+                                            {{$perm}}
+                                            
+                                        </option>
+                                        <option value="{{$perm2}}">
+                                            {{$perm2}}
+                                        </option>
+                                    </select>
+                                    
+                                    </div>                                
+
                                     <button type="submit" class="btn btn-danger btn-sm m l-md" data-toggle="modal">
                                             Remove
                                     </button>
@@ -410,6 +431,32 @@ use App\Project;
                 @endforeach
             </tbody>
         </table>
+        <script type="text/javascript"> 
+            function changePermission(uID, pID){
+
+                var sel = document.getElementById('changePermission'+uID);
+                var permission = sel.options[sel.selectedIndex].value;
+
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.post('http://localhost/project/public/changePermission', {
+
+                    pID: pID,
+                    uID: uID,
+                    permission: permission
+
+                },  function(response){  
+                        
+                    }
+
+                );
+            }
+        </script>
     </div>
     
 @endsection

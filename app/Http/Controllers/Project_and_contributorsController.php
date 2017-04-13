@@ -29,28 +29,39 @@ class Project_and_contributorsController extends Controller
    
     public function create(Request $request)
     {
-   
+        // id2:2  id3:2
         $ids = array();
         $ids = explode(" ", $request->cString);
-
-        die($request->perms);
+        $pers_string = $request->pers;
 
         foreach ($ids as $uID) {
+            $pers_string = str_replace('id' . $uID . ':', '', $pers_string);
+        }
+
+        $permissions = array();
+        $permissions = explode("  ", $pers_string);    
+
+        $i=0;
+        foreach ($ids as $uID) {
             if( Project_and_contributors::where('project_id', $request->pID)->where('user_id', $uID)->count('user_id') > 0){
-                
-               continue;
-            
+                continue;
+                $i++;
             }
-        
+            
             $allow = new Project_and_contributors; 
             $allow->project_id = $request->pID;
             $allow->user_id = $uID; 
-            $allow->permission = $request->select;
+            if($permissions[$i] == 1){
+                $allow->permission = 'Read';
+            }else if($permissions[$i] == 2){
+                $allow->permission = 'Read+Write';
+            }
             $allow->save();
             
+            $i++;
         }
-
-        return redirect('/');
+        
+        //return redirect('/');
     }
 
 
