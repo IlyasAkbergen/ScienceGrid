@@ -65,7 +65,7 @@
                                     <br><br><br> 
                                     <label for="fileToUpload" class="col-sm-5 control-label">Upload file:</label>
                                     
-                                    <input id="fileToUpload" name="uploadFile" type="file">
+                                    <input id="fileToUpload" name="uploadFile" type="file" required>
                                     <input type="submit" value="Create" style="margin-top: 20px;" class="btn btn-success col-sm-4">
                                     
                                 </div>

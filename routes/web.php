@@ -51,3 +51,5 @@ Route::post('addRightCol', 'UsersController@addRightCol');
 Route::get('download/{filename}', 'FileController@download');
 
 Route::post('changePermission', 'ContributorsController@edit');
+
+Route::post('uploadFile', 'FileController@upload');

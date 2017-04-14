@@ -1,0 +1,31 @@
+<div class="main-wrapper">
+
+               <div class="header-post-title-container clearfix">
+            <div class="inner-wrap">
+               <div class="post-title-wrapper">
+                                 <h1 class="header-post-title-class entry-title">Металлические опоры освещения</h1>
+                              </div>
+                           </div>
+         </div>
+     
+   <div class="single-page clearfix">
+      <div class="inner-wrap">
+         <div id="primary">
+            <div id="content">
+
+               
+                  
+<article id="post-112" class="post-112 page type-page status-publish hentry">
+   
+   <div class="entry-content">
+      <div id="dslc-theme-content"><div id="dslc-theme-content-inner"><p>Металлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещенияМеталлические опоры освещения</p>
+</div></div>   </div>
+
+   </article>
+                                             </div>
+                     </div>
+
+               </div><!-- .inner-wrap -->
+   </div><!-- .single-page -->
+
+         </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use App\Project;
 use App\Project_and_contributors;
+use App\Project_and_files;
 use App\Category;
 use Illuminate\Support\Facades\Validator;
 use Auth;
@@ -56,7 +57,8 @@ class ProjectsController extends Controller
 	    $project->user_id = Auth::user()->id;
 	    $project->category = $request->category; 
 	    
-	    
+	    $project->save();
+
 	    if($request->hasFile('uploadFile')) {
             
         	$file = $request->file('uploadFile');
@@ -66,9 +68,10 @@ class ProjectsController extends Controller
             }
 		}
 
-		$project->file_path = $request->title . '_' . $file->getClientOriginalName();
-
-	    $project->save();
+		$p_and_file = new Project_and_files;
+		$p_and_file->project_id = Project::all()->last()->id;
+		$p_and_file->file = $file->getClientOriginalName();
+		$p_and_file->save();
 
 	    return redirect('/');
 	}
@@ -88,7 +91,8 @@ class ProjectsController extends Controller
 			return redirect('/');
 		}else{
 			$project = Project::find($id);
-        	return view('show', compact('project'));
+			$files = Project_and_files::where('project_id', $id)->get();
+        	return view('show', compact('project', 'files'));
         }
 	}
 

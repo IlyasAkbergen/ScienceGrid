@@ -3,9 +3,10 @@ use App\User;
 use App\Project_and_contributors;
 use App\Category;
 use Auth\Article as BA;
+use App\Http\Controllers\ContributorsController;
 ?>
 @extends('layouts.app')
-@if( $project->user_id === Auth::user()->id || Auth::user()->role === 'admin' )
+@if( $project->user_id === Auth::user()->id || Auth::user()->role === 'admin' || ContributorsController::canWrite($project->id, Auth::user()->id) )
 @section('settings_contributors')
     <nav class="navbar">
             <div class="container">
@@ -46,10 +47,24 @@ use Auth\Article as BA;
             <div class="col-sm-12">Category: {{ Category::where('id', $project->category)->first()->name }}</div>
             <div class="col-sm-12">Description: {{ $project->description }}</div>
 
-            @if($project->file_path != NULL)
-                <div class="col-sm-12">File: <a href="{{ url('download/' . $project->file_path) }}"><span class="glyphicon glyphicon-paperclip"> </span>{{' '.$project->file_path}}</a></div>
+            @if(!empty($files))
+                <div class="col-sm-12"></div>
+                <?php $i=0; ?>
+                @foreach($files as $file)
+                    <div class="col-sm-12"> <?php if($i==0){ echo 'Files:'; } $i++;?> <a href="{{ url('download/' . $file->file) }}"><span class="glyphicon glyphicon-paperclip"> </span>{{' '.$file->file}}</a></div>
+                @endforeach
             @endif
-           
+            
+            @if( $project->user_id === Auth::user()->id || Auth::user()->role === 'admin' || ( ContributorsController::canRead($project->id, Auth::user()->id) ||  ContributorsController::canWrite($project->id, Auth::user()->id)) )
+                
+                <form action="{{ url('uploadFile') }}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="project_id" value="{{ $project->id }}">
+                    <label for="fileToUpload" class="control-label">Upload file:</label>
+                    <input id="fileToUpload" name="uploadFile" type="file" required>
+                    <input type="submit" value="Upload" style="margin-top: 20px;" class="btn btn-success col-sm-1">
+                </form>
+            @endif
         </div>
     </div>
 @endsection

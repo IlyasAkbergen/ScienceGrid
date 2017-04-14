@@ -32,4 +32,27 @@ class ContributorsController extends Controller
         return 0;
 
     }
+
+    public static function canRead($pID, $uID){
+
+        $perm = Project_and_contributors::where('project_id', $pID)->where('user_id', $uID)->first()->permission;
+
+        if( $perm == 'Read' ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function canWrite($pID, $uID){
+
+        $perm = Project_and_contributors::where('project_id', $pID)->where('user_id', $uID)->first()->permission;
+
+        if( $perm == 'Read+Write' ){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
 }
