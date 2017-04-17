@@ -7,10 +7,6 @@ use App\Allow;
 
 class Model extends Eloquent
 {
-	
 	protected $guarded = [];
-
-
 }
-
 ?>

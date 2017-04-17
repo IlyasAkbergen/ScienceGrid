@@ -57,5 +57,4 @@ class EducationController extends Controller
             return redirect('/editProfilePage');
         }
     }
-
 }

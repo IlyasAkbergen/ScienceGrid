@@ -1,5 +1,4 @@
 <?php 
-    //use App\library\MyFunctions;
     use App\User;
     use App\Allow;    
 ?>

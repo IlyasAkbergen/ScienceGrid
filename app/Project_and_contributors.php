@@ -7,14 +7,12 @@ use App\Project;
 
 class Project_and_contributors extends Model
 {
-
 	public $timestamps = false;
 	protected $fillable = ['permission'];
 
 	public function project(){
 
 		return $this->belongsTo(Project::class); 
-
 	}
 
     public static function getContributor($pID) {
@@ -34,7 +32,6 @@ class Project_and_contributors extends Model
 
             $i++;
 		}
-
 		return $allows_array;
 	}
 
@@ -53,13 +50,10 @@ class Project_and_contributors extends Model
 		}
 
 		return $projects;
-
 	}
 
 	public static function getPerm($pID, $uID){
 
 		return Project_and_contributors::where('project_id', $pID)->where('user_id',$uID)->first()->permission;
-
 	}
-
 }

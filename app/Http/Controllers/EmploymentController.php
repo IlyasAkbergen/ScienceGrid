@@ -57,5 +57,4 @@ class EmploymentController extends Controller
             return redirect('/editProfilePage');
         }
     }
-
 }
