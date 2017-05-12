@@ -14,11 +14,11 @@ class CreateEducationTable extends Migration
     public function up()
     {
         Schema::create('education', function (Blueprint $table) {
-            $table->increments('education_id');
+            $table->increments('id');
             $table->string('universityName');
             $table->string('department')->nullable();
             $table->string('degree')->nullable();
-            $table->string('startDate');
+            $table->string('startDate')-nullable();
             $table->string('endDate')->nullable();
             $table->boolean('ongoing')->nullable();
             $table->timestamps();

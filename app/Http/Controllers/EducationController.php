@@ -17,10 +17,9 @@ class EducationController extends Controller
    
     public function create(request $request)
     {
-        if(Auth::guest()){
+        if (Auth::guest()) {
             return redirect('/editProfilePage');
-        }else{
-
+        } else {
             $education = new Education;
             $education->universityName = $request->institution;
             $education->department = $request->department;
@@ -28,9 +27,9 @@ class EducationController extends Controller
             $education->startDate = $request->startmonth . ', ' . $request->startyear;
             $education->endDate = $request->endmonth . ', ' . $request->endyear;
             
-            if($request->ongoing === 'on'){
+            if ($request->ongoing === 'on') {
                 $education->ongoing = 1;
-            }else{
+            } else {
                 $education->ongoing = 0;
             }
             
@@ -43,15 +42,14 @@ class EducationController extends Controller
 
             
             return redirect('/editProfilePage');
-
         }
     }
 
      public function delete($id){
 
-        if(Auth::guest()){
+        if (Auth::guest()) {
             return redirect('/');
-        }else{
+        } else {
             Education::where('education_id', $id)->delete();
             User_and_educations::where('education_id', $id)->delete();
             return redirect('/editProfilePage');

@@ -30,17 +30,17 @@ use App\Http\Controllers\ContributorsController;
             <div class="col-sm-11">
                 
                  <ul style=" list-style-type: none; margin: 0; padding: 0;">
-                    <li><b style="color: blue;"><?php echo User::getUsername($project->user_id) . "\n"; ?></b><br> </li>
+                    <li>
+                        <b style="color: #337AB7;"><?php echo User::getUsername($project->user_id) . "\n"; ?></b><br>
+                    </li>
                     <?php  
                       $names = array(); 
                       $names = Project_and_contributors::getContributor($project->id); 
                     foreach ($names as $names) {
-                        ?><li> <?php echo $names;?> </li><?php
-                                
+                        ?><li style="color: #337AB7;"> <?php echo $names;?> </li><?php 
                     }
                     ?>
                 </ul> 
-
             </div>
 
             <div class="col-sm-12">Date created: {{ $project->created_at . " | "}} Last updated: {{ $project->updated_at }} </div>

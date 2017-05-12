@@ -1,18 +1,19 @@
 <?php
+
 use App\Project;
 use Illuminate\Http\Request;
+
+Auth::routes();
 
 Route::get('/', 'ProjectsController@projects');
 
 Route::post('/project', 'ProjectsController@create');
 
-Route::get('/show/{id}', 'ProjectsController@show')->name('show');
+Route::get('/show/{id}', 'ProjectsController@show');
 
 Route::post('/edit', 'ProjectsController@edit');
 
 Route::delete('/project/{pID}', 'ProjectsController@delete');
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
@@ -22,9 +23,7 @@ Route::delete('/allow/{pID}', 'Project_and_contributorsController@delete');
 
 Route::post('/tag', 'TagController@store');
 
-Route::get('addProject', function () {
-    return view('addProject');
-});
+Route::get('addProject', function () { return view('addProject'); });
 
 Route::get('/show/settings/{pID}', 'SettingsController@show');
 

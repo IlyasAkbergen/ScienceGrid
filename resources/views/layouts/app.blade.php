@@ -11,19 +11,13 @@
     <meta fullName="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSRF Token -->
-   
-
     <title>{{ config('app.fullName', 'ScienceGrid') }}</title>
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
     <style>
-        
         #example>tbody>tr:hover {
             background-color: #ccc;
         }
-
     </style>
     <!-- Scripts -->
     <!-- <link href="http://cdn.datatables.net/responsive/1.0.1/css/dataTables.responsive.css" rel="stylesheet"> -->
@@ -37,31 +31,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/i18n/defaults-en_US.js"></script>
-
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
-
     </script>
-
     <script>
         $(document).ready(function() {
-
             $('#example tr').click(function() {
                 var href = $(this).find("a").attr("href");
                 if(href) {
                     window.location = href;
                 }
             });
-
         });
     </script>
 
@@ -71,40 +58,26 @@
                 $('#example').DataTable();
         });
     </script>
-
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.fullName', 'ScienceGrid') }}
                     </a>
-
                 </div>
                 
                 <ul class="nav navbar-nav">
-
                   <li><a href="{{ url('/') }}">Dashboard</a></li>
                   <li><a href="#">Browse</a></li>
-                 
                 </ul>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    
                     <ul class="nav navbar-nav">
                         &nbsp;
-                    </ul>
-
-                    
+                    </ul>                
                     <ul class="nav navbar-nav navbar-right">
                         
                         @if (Auth::guest())
@@ -119,16 +92,15 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li> 
                                         <a href="{{url('profile' . '/' . Auth::user()->id) }}">
-                                           <span class="glyphicon glyphicon-user"></span>Profile
+                                           <span class="glyphicon glyphicon-user"></span> &nbsp; Profile
                                         </a>
                                         <a href="{{url('editProfilePage' . '/' . Auth::user()->id)}}">
-                                            <span class="glyphicon glyphicon-cog"></span>
-                                            Settings
+                                            <span class="glyphicon glyphicon-cog"></span> &nbsp; Settings
                                         </a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            <span class="glyphicon glyphicon-log-out"></span>Logout
+                                            <span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
@@ -143,12 +115,10 @@
         </nav>
         
         @yield('settings_contributors')
-       
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    
 </body>
 </html>

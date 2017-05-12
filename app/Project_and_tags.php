@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class P_and_tag extends Model
+class Project_and_tags extends Model
 {
     
 }

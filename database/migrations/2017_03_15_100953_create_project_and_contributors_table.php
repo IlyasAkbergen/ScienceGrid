@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePAndTagsTable extends Migration
+class CreateProjectAndContributorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreatePAndTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('p_and_tags', function (Blueprint $table) {
+        Schema::create('project_and_contributors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id');
-            $table->integer('tag_id');
+            $table->integer('user_id');
+            $table->string('permissions');
         });
     }
 
@@ -27,6 +28,6 @@ class CreatePAndTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('p_and_tags');
+        Schema::dropIfExists('project_and_contributors');
     }
 }

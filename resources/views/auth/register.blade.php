@@ -63,26 +63,20 @@
                         <div class="form-group">
                             <label for="role[]" class="col-md-4 control-label"  style="margin-right: 15px;">Role</label>
 
-                            <select name="role" id="role[]>" class="selectpicker">
-                                <option value="admin">
-                                   Admin
-                                </option>
-                                
+                            <select name="role" id="role" class="selectpicker">
                                 <option value="user">
                                    User
                                 </option>
-
-                                <option value="moderator">
-                                   Moderator
+                                <option value="investor">
+                                   Investor
                                 </option>
-
                             </select>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Sign in
+                                    Sign up
                                 </button>
                             </div>
                         </div>
