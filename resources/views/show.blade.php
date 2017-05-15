@@ -6,6 +6,7 @@ use Auth\Article as BA;
 use App\Http\Controllers\ContributorsController;
 ?>
 @extends('layouts.app')
+
 @if( $project->user_id === Auth::user()->id || Auth::user()->role === 'admin' || ContributorsController::canWrite($project->id, Auth::user()->id) )
 @section('settings_contributors')
     <nav class="navbar">

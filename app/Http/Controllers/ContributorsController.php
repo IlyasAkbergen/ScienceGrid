@@ -16,13 +16,13 @@ class ContributorsController extends Controller
         if (Auth::guest()) {
             return redirect('/');
         } else {
-            $contributors = array(); 
-            $contributors = Project_and_contributors::getContributor($id); 
-            
+            $contributors = array();
+            $contributors = Project_and_contributors::getContributor($id);
+
             return view('contributors', compact('contributors', 'id'));
         }
     }
-    
+
     public function edit(Request $request){
 
         $allow = Project_and_contributors::where('project_id', $request->pID)->where('user_id', $request->uID)->first();

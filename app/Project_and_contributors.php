@@ -43,17 +43,13 @@ class Project_and_contributors extends Model
 		
 		$i = 0;
 		foreach ($pIDs as $pID) {
-			
 			$projects[$i] = Project::where('id', $pID->project_id)->first();
 			$i++;
-
 		}
-
 		return $projects;
 	}
 
 	public static function getPerm($pID, $uID){
-
 		return Project_and_contributors::where('project_id', $pID)->where('user_id',$uID)->first()->permission;
 	}
 }

@@ -24,7 +24,7 @@
         </span>
         @endif
     </div>
-</div><!-- end-page-header -->
+</div>
 
 
 <div class="row">
@@ -44,19 +44,17 @@
             </tbody>
         </table>
         <h2>
-           {{ count(Project::where('user_id', $id)->get()) }}  @if(count(Project::where('user_id', $id)->get()) !== 1)
-                                                                    {{ 'projects' }}
-                                                                @else
-                                                                    {{ 'project' }}
-                                                                @endif
+           {{ count(Project::where('user_id', $id)->get()) }}  
+           @if(count(Project::where('user_id', $id)->get()) !== 1)                                                    
+                {{ 'projects' }}
+            @else
+                {{ 'project' }}
+            @endif
            <br>     
-           
         </h2>
     </div>
 
     <div class="col-sm-6">
-
-
         <ul class="nav nav-tabs">
             <li class="active"><a href="#social" data-toggle="tab">Social</a></li>
             <li><a href="#jobs" data-toggle="tab">Employment</a></li>
@@ -67,24 +65,17 @@
 
             <div class="m-t-md tab-pane active" id="social">
                 <div data-bind="template: {name: 'profileSocial'}">
-
                     <link rel="stylesheet" href="/static/css/pages/profile-page.css">
                     <link rel="stylesheet" href="/static/vendor/bower_components/academicons/css/academicons.css">
-
                     <div data-bind="if: mode() === 'edit'"></div>
-
                     <div data-bind="if: mode() === 'view'">
 
                         <table class="table" data-bind="if: hasValues()"></table>
-
                         <div >
                             <div class="well well-sm">Not provided</div>
                         </div>
-
                         <div data-bind="if: editAllowed"></div>
-
                     </div>
-
                 </div>
             </div>
 
@@ -92,8 +83,7 @@
                 <div data-bind="template: {name: 'profileJobs'}">
 
                     <div data-bind="if: mode() === 'edit'"></div>
-
-              
+            
                     <div data-bind="ifnot: contents().length" class="dropdown">
                     @if(empty($employments))
                         <div class="well well-sm">Not provided</div>
@@ -130,13 +120,9 @@
                         @endforeach
                     @endif
                     </div>
-                      
                     <div class="row" data-bind="if: contents().length"></div>
-
                     <div data-bind="if: editable"></div>
-
                 </div>
-
             </div>
         
 
@@ -185,19 +171,13 @@
                         </div>
 
                         <div class="row" data-bind="if: contents().length"></div>
-
-
                         <div data-bind="if: editable"></div>
 
                     </div>
-
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <hr>
@@ -209,7 +189,6 @@
             </div>
             <div class="panel-body">
               
-
             <div class="help-block">
                 
                 <?php $projects = Project::where('user_id', $id)->get(); ?>
@@ -245,15 +224,11 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
-
-
             </div>
         </div>
     </div>
-    
-</div><!-- end row -->
+</div>
 
 <script id="profileSocial" type="text/html">
 
@@ -402,15 +377,10 @@
                         class="btn btn-success"
                     >Save</button>
             </div>
-
-            <!-- Flashed Messages -->
             <div class="help-block flashed-message">
                 <p data-bind="html: message, attr: {class: messageClass}"></p>
             </div>
-
-
         </form>
-
     </div>
 
     <div data-bind="if: mode() === 'view'">
@@ -442,7 +412,6 @@
         </div>
 
     </div>
-
 </script>
 <script>
 iconName = function(name) {
@@ -556,7 +525,6 @@ iconName = function(name) {
                     <hr data-bind="visible: $index() != ($parent.contents().length - 1)" />
 
                 </div>
-
             </div>
 
             <div>
@@ -566,28 +534,14 @@ iconName = function(name) {
             </div>
 
             <div class="p-t-lg p-b-lg">
-
-                <button
-                        type="button"
-                        class="btn btn-default"
-                        data-bind="click: cancel"
-                    >Discard changes</button>
-
-                <button
-                        data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'"
-                        type="submit"
-                        class="btn btn-success"
-                    >Save</button>
-
+                <button type="button" class="btn btn-default" data-bind="click: cancel">Discard changes</button>
+                <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">    Save
+                </button>
             </div>
-
-            <!-- Flashed Messages -->
             <div class="help-block">
                 <p data-bind="html: message, attr: {class: messageClass}"></p>
             </div>
-
         </form>
-
     </div>
 
     <div data-bind="if: mode() === 'view'">
@@ -600,7 +554,6 @@ iconName = function(name) {
 
             <div data-bind="foreach: contents">
                 <div class="col-xs-12">
-                    <!-- ko if: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading card-heading" data-bind="click: toggle(), attr: {id: 'jobHeading' + $index(), href: '#jobCard' + $index()}" role="button" data-toggle="collapse" aria-controls="card" aria-expanded="false">
                                 <div class="header-content">
@@ -621,8 +574,6 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading no-bottom-border">
                                 <div>
@@ -630,7 +581,6 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
                 </div>
             </div>
         </div>
@@ -659,16 +609,14 @@ iconName = function(name) {
                 }">
 
                 <div>
-
                     <div class="well well-sm sort-handle">
                         <span>Position <span data-bind="text: $index() + 1"></span></span>
                         <span data-bind="visible: $parent.contentsLength() > 1">
                             [ drag to reorder ]
                         </span>
-                        <a
-                                class="text-danger pull-right"
-                                data-bind="click: $parent.removeContent.bind($parent)"
-                                >Remove</a>
+                        <a class="text-danger pull-right" data-bind="click: $parent.removeContent.bind($parent)">
+                            Remove
+                        </a>
                     </div>
 
                     <div class="form-group">
@@ -734,9 +682,7 @@ iconName = function(name) {
                     </div>
 
                     <hr data-bind="visible: $index() != ($parent.contents().length - 1)" />
-
                 </div>
-
             </div>
 
             <div>
@@ -746,28 +692,17 @@ iconName = function(name) {
             </div>
 
             <div class="p-t-lg p-b-lg">
+                <button type="button" class="btn btn-default" data-bind="click: cancel">Discard changes</button>
 
-                <button
-                        type="button"
-                        class="btn btn-default"
-                        data-bind="click: cancel"
-                    >Discard changes</button>
-
-                <button
-                        data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'"
-                        type="submit"
-                        class="btn btn-success"
-                    >Save</button>
+                <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">    Save
+                </button>
 
             </div>
 
-            <!-- Flashed Messages -->
             <div class="help-block">
                 <p data-bind="html: message, attr: {class: messageClass}"></p>
             </div>
-
         </form>
-
     </div>
 
     <div data-bind="if: mode() === 'view'">
@@ -779,7 +714,6 @@ iconName = function(name) {
         <div class="row" data-bind="if: contents().length">
             <div data-bind="foreach: contents">
                 <div class="col-xs-12">
-                    <!-- ko if: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading card-heading" data-bind="click: toggle(), attr: {id: 'schoolHeading' + $index(), href: '#schoolCard' + $index()}" role="button" data-toggle="collapse" aria-controls="card" aria-expanded="false">
                                 <div class="header-content">
@@ -800,8 +734,6 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading no-bottom-border">
                                 <div>
@@ -809,19 +741,13 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
                 </div>
             </div>
-
         </div>
-
-
         <div data-bind="if: editable">
             <a class="btn btn-default" data-bind="click: edit">Edit</a>
         </div>
-
     </div>
-
 </script>
 
 <script type="text/javascript">
@@ -843,8 +769,6 @@ iconName = function(name) {
       });
   })();
 </script>
-
-
-        </div><!-- end container -->
+        </div>
     </div>
 @endsection

@@ -12,4 +12,4 @@ class Project extends Model
 		return $this->hasMany(Allow::class);
 	}
 }
-?>
+

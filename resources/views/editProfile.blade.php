@@ -60,7 +60,6 @@
             </div>
             </h2>
 
-
             <div id="profileSettings" class="row">
 
             <div class="col-sm-3 affix-parent">
@@ -68,29 +67,12 @@
                   <ul class="nav nav-stacked nav-pills">
                       <li class="active">
                         <a href="#">Profile information</a></li>
-
-                     <!--  <li class="">
-                        <a href="/settings/account/">Account settings</a></li>
-
-                      <li class="">
-                        <a href="/settings/addons/">Configure add-on accounts</a></li>
-
-                      <li class="">
-                        <a href="/settings/notifications/">Notifications</a></li>
-
-                      <li class="">
-                        <a href="/settings/applications/">Developer apps</a></li>
-
-                      <li class="">
-                        <a href="/settings/tokens/">Personal access tokens</a></li> -->
                   </ul>
                 </div>
              </div>
 
     <div class="col-sm-9 col-md-7">
-
         <div id="userProfile">
-
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#names" data-toggle="tab" aria-expanded="true">Name</a></li>
                 <li class=""><a href="#jobs" data-toggle="tab" aria-expanded="false">Employment</a></li>
@@ -111,14 +93,10 @@
                                 <label>Address</label>
                                 <input class="form-control" name="address"><span class="validationMessage" style="display: none;"></span>
                             </div>
-
                             <hr>
-
                             <div class="p-t-lg p-b-lg">
                                 <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">Save</button>
                             </div>
-
-                             <!-- Flashed Messages -->
                             <div class="help-block">
                                 <p data-bind="html: message, attr: {class: messageClass}"></p>
                             </div>
@@ -129,7 +107,6 @@
 
                 <div class="m-t-md tab-pane" id="jobs">
                     <div >
-
                     <div >
                     
                     <div data-bind="ifnot: contents().length" class="col-sm-6 dropdown">
@@ -162,17 +139,13 @@
                                 @if(!empty($emp->jobTitle))
                                     <b>Job title: </b>{{ "\n" . $emp->jobTitle }}
                                 @endif
-                             
                             </div>    
-
                         </div>
-                        
                         <?php $i++; ?>
                         @endforeach
                     @endif
                     </div>
 
-<!-- START MODAL  -->
         <p></p>
         <button type="button" class="btn btn-success btn-sm m-l-md" data-toggle="modal" data-target="#myModal" >
             <span class="glyphicon glyphicon-plus"></span> Add new
@@ -181,24 +154,18 @@
         <div id="myModal" class="modal fade" role="dialog">
           <div class="modal-dialog">
 
-            <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"><b>Add new employment information</b></h4>
               </div>
-              <!-- MODAL BODY MODAL BODY -->
 
               <div class="modal-body">
 
-                <!-- Whom to add -->
                 <div data-bind="if: page() == 'whom'">
-                    <!-- Find contributors -->
                     <form role="form" method="post" action="{{url('updateEmployment')}}">
-    
                         <div>
                                 <div>
-
                                 <br>
                                 {{ csrf_field() }}
                                 <div class="form-group">
@@ -247,7 +214,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label>Ongoing</label>
                                     <input type="checkbox" name="ongoing">
@@ -273,23 +239,13 @@
 
                         </div>
                         <br>
-
                         </form>
+                </div>                
 
-
-
-                    <!-- Choose which to add -->
-                   
-                </div>
-                <!-- Component selection page -->
-                
-
-                <!-- Invite user page -->
-                <div data-bind="if:page() === &quot;invite&quot;"></div><!-- end invite user page -->
+                <div data-bind="if:page() === &quot;invite&quot;"></div>
 
             </div>
 
-            <!-- END MODAL BODY MODAL BODY  -->
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
@@ -297,8 +253,6 @@
           </div>
         </div>
 
-<!-- END MODAL -->
-                        
                     </div>
 
                     <div data-bind="if: mode() === 'view'"></div>
@@ -348,7 +302,6 @@
                                 @endforeach
                             @endif
                         </div>    
-
             <p></p>
             <button type="button" class="btn btn-success btn-sm m-l-md" data-toggle="modal" data-target="#myModal2" >
                 <span class="glyphicon glyphicon-plus"></span> Add new
@@ -357,25 +310,19 @@
             <div id="myModal2" class="modal fade" role="dialog">
               <div class="modal-dialog">
 
-                <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><b>Add new education information</b></h4>
                   </div>
-                  <!-- MODAL BODY MODAL BODY -->
+                
+                <div class="modal-body">
 
-                  <div class="modal-body">
-
-                    <!-- Whom to add -->
-                    <div data-bind="if: page() == 'whom'">
-                        <!-- Find contributors -->    
+                 <div data-bind="if: page() == 'whom'">
 
                 <form role="form" method="post" action="{{url('updateEducation')}}">
-    
                         <div>
                                 <div>
-
                                 <br>
                                 {{ csrf_field() }}
                                 <div class="form-group">
@@ -424,7 +371,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label>Ongoing</label>
                                     <input type="checkbox" name="ongoing">
@@ -436,55 +382,36 @@
                                     <p data-bind="validationMessage: startYear" style="display: none;"></p>
                                     <p data-bind="validationMessage: endYear" style="display: none;"></p>
                                 </div>
-
                             <hr data-bind="visible: $index() != ($parent.contents().length - 1)" style="display: none;">
-
                              </div>
                         </div>
 
                         <div class="p-t-lg p-b-lg">
-
                             <button  type="reset" class="btn btn-default" >Discard changes</button>
 
                             <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">Save</button>
-
                         </div>
                         <br>
-
                         </form>
-                         <!-- Choose which to add -->
-                   
                 </div>
-                <!-- Component selection page -->
-                
 
-                <!-- Invite user page -->
-                <div data-bind="if:page() === &quot;invite&quot;"></div><!-- end invite user page -->
+                <div data-bind="if:page() === &quot;invite&quot;"></div>
 
             </div>
-
-            <!-- END MODAL BODY MODAL BODY  -->
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
         </div>
-
             </div>
-
             <div data-bind="if: mode() === 'view'"></div>
-
         </div>
         </div>
     </div>
-
 </div>
-
 </div>
-
 </div>
-
 
 <script id="profileName" type="text/html">
 
@@ -552,27 +479,15 @@
         </table>
 
         <div class="p-t-lg p-b-lg">
-
-            <button
-                    type="button"
-                    class="btn btn-default"
-                    data-bind="click: cancel"
-                >Discard changes</button>
-
-            <button
-                    data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'"
-                    type="submit"
-                    class="btn btn-success"
-                >Save</button>
-
+            <button type="button" class="btn btn-default" data-bind="click: cancel">Discard changes</button>
+            <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">
+                Save
+            </button>
         </div>
-
-        <!-- Flashed Messages -->
         <div class="help-block">
             <p data-bind="html: message, attr: {class: messageClass}"></p>
         </div>
     </form>
-
 </script>
 
 <script id="profileSocial" type="text/html">
@@ -709,28 +624,17 @@
             </div>
 
             <div class="p-t-lg p-b-lg">
+                <button type="button" class="btn btn-default" data-bind="click: cancel">
+                    Discard changes
+                </button>
 
-                <button
-                        type="button"
-                        class="btn btn-default"
-                        data-bind="click: cancel"
-                    >Discard changes</button>
-
-                <button
-                        data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'"
-                        type="submit"
-                        class="btn btn-success"
-                    >Save</button>
+                <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">    Save 
+                </button>
             </div>
-
-            <!-- Flashed Messages -->
             <div class="help-block flashed-message">
                 <p data-bind="html: message, attr: {class: messageClass}"></p>
             </div>
-
-
         </form>
-
     </div>
 
     <div data-bind="if: mode() === 'view'">
@@ -760,9 +664,7 @@
         <div data-bind="if: editAllowed">
             <a class="btn btn-primary" data-bind="click: edit">Edit</a>
         </div>
-
     </div>
-
 </script>
 <script>
 iconName = function(name) {
@@ -784,11 +686,8 @@ iconName = function(name) {
 </script>
 
 <script id="profileJobs" type="text/html">
-
     <div data-bind="if: mode() === 'edit'">
-
         <form role="form" data-bind="submit: submit, validationOptions: {insertMessages: false, messagesOnModified: false}">
-
             <div data-bind="sortable: {
                     data: contents,
                     options: {
@@ -799,16 +698,14 @@ iconName = function(name) {
                 }">
 
                 <div>
-
                     <div class="well well-sm sort-handle">
                         <span>Position <span data-bind="text: $index() + 1"></span></span>
                         <span data-bind="visible: $parent.contentsLength() > 1">
                             [ drag to reorder ]
                         </span>
-                        <a
-                                class="text-danger pull-right"
-                                data-bind="click: $parent.removeContent.bind($parent)"
-                                >Remove</a>
+                        <a class="text-danger pull-right" data-bind="click: $parent.removeContent.bind($parent)">
+                            Remove
+                        </a>
                     </div>
 
                     <div class="form-group">
@@ -860,7 +757,6 @@ iconName = function(name) {
                             </div>
                     </div>
 
-
                     <div class="form-group">
                         <label>Ongoing</label>
                         <input type="checkbox" data-bind="checked: ongoing, click: clearEnd"/>
@@ -872,11 +768,8 @@ iconName = function(name) {
                         <p data-bind="validationMessage: startYear"></p>
                         <p data-bind="validationMessage: endYear"></p>
                     </div>
-
                     <hr data-bind="visible: $index() != ($parent.contents().length - 1)" />
-
                 </div>
-
             </div>
 
             <div>
@@ -886,28 +779,16 @@ iconName = function(name) {
             </div>
 
             <div class="p-t-lg p-b-lg">
-
-                <button
-                        type="button"
-                        class="btn btn-default"
-                        data-bind="click: cancel"
-                    >Discard changes</button>
-
-                <button
-                        data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'"
-                        type="submit"
-                        class="btn btn-success"
-                    >Save</button>
-
+                <button type="button" class="btn btn-default" data-bind="click: cancel">
+                    Discard changes
+                </button>
+                <button data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'" type="submit" class="btn btn-success">    Save
+                </button>
             </div>
-
-            <!-- Flashed Messages -->
             <div class="help-block">
                 <p data-bind="html: message, attr: {class: messageClass}"></p>
             </div>
-
         </form>
-
     </div>
 
     <div data-bind="if: mode() === 'view'">
@@ -920,7 +801,6 @@ iconName = function(name) {
 
             <div data-bind="foreach: contents">
                 <div class="col-xs-12">
-                    <!-- ko if: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading card-heading" data-bind="click: toggle(), attr: {id: 'jobHeading' + $index(), href: '#jobCard' + $index()}" role="button" data-toggle="collapse" aria-controls="card" aria-expanded="false">
                                 <div class="header-content">
@@ -941,8 +821,6 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading no-bottom-border">
                                 <div>
@@ -950,7 +828,6 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
                 </div>
             </div>
         </div>
@@ -958,17 +835,12 @@ iconName = function(name) {
         <div data-bind="if: editable">
             <a class="btn btn-default" data-bind="click: edit">Edit</a>
         </div>
-
     </div>
-
 </script>
 
 <script id="profileSchools" type="text/html">
-
     <div data-bind="if: mode() === 'edit'">
-
         <form role="form" data-bind="submit: submit, validationOptions: {insertMessages: false, messagesOnModified: false}">
-
             <div data-bind="sortable: {
                     data: contents,
                     options: {
@@ -977,20 +849,16 @@ iconName = function(name) {
                         tolerance: 'pointer'
                     }
                 }">
-
                 <div>
-
                     <div class="well well-sm sort-handle">
                         <span>Position <span data-bind="text: $index() + 1"></span></span>
                         <span data-bind="visible: $parent.contentsLength() > 1">
                             [ drag to reorder ]
                         </span>
-                        <a
-                                class="text-danger pull-right"
-                                data-bind="click: $parent.removeContent.bind($parent)"
-                                >Remove</a>
+                        <a class="text-danger pull-right" data-bind="click: $parent.removeContent.bind($parent)">
+                            Remove
+                        </a>
                     </div>
-
                     <div class="form-group">
                         <label>Institution</label>
                         <input class="form-control" data-bind="value: institution" 
@@ -999,17 +867,14 @@ iconName = function(name) {
                             <p data-bind="validationMessage: institution"></p>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label>Department</label>
                         <input class="form-control" data-bind="value: department" />
                     </div>
-
                     <div class="form-group">
                         <label>Degree</label>
                         <input class="form-control" data-bind="value: degree" />
                     </div>
-
                     <div class="form-group">
                         <label>Start date</label>
                         <div class="row">
@@ -1024,7 +889,6 @@ iconName = function(name) {
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group" data-bind="ifnot: ongoing">
                         <label>End date</label>
                             <div class="row">
@@ -1039,24 +903,18 @@ iconName = function(name) {
                                 </div>
                             </div>
                     </div>
-
-
                     <div class="form-group">
                         <label>Ongoing</label>
                         <input type="checkbox" data-bind="checked: ongoing, click: clearEnd"/>
                     </div>
-
                     <div data-bind="visible: $parent.showMessages, css:'text-danger'">
                         <p data-bind="validationMessage: start"></p>
                         <p data-bind="validationMessage: end"></p>
                         <p data-bind="validationMessage: startYear"></p>
                         <p data-bind="validationMessage: endYear"></p>
                     </div>
-
                     <hr data-bind="visible: $index() != ($parent.contents().length - 1)" />
-
                 </div>
-
             </div>
 
             <div>
@@ -1066,28 +924,21 @@ iconName = function(name) {
             </div>
 
             <div class="p-t-lg p-b-lg">
-
                 <button
                         type="button"
                         class="btn btn-default"
                         data-bind="click: cancel"
                     >Discard changes</button>
-
                 <button
                         data-bind="disable: saving(), text: saving() ? 'Saving' : 'Save'"
                         type="submit"
                         class="btn btn-success"
                     >Save</button>
-
             </div>
-
-            <!-- Flashed Messages -->
             <div class="help-block">
                 <p data-bind="html: message, attr: {class: messageClass}"></p>
             </div>
-
         </form>
-
     </div>
 
     <div data-bind="if: mode() === 'view'">
@@ -1099,7 +950,6 @@ iconName = function(name) {
         <div class="row" data-bind="if: contents().length">
             <div data-bind="foreach: contents">
                 <div class="col-xs-12">
-                    <!-- ko if: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading card-heading" data-bind="click: toggle(), attr: {id: 'schoolHeading' + $index(), href: '#schoolCard' + $index()}" role="button" data-toggle="collapse" aria-controls="card" aria-expanded="false">
                                 <div class="header-content">
@@ -1120,8 +970,6 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: expandable() -->
                         <div class="panel panel-default">
                             <div class="panel-heading no-bottom-border">
                                 <div>
@@ -1129,33 +977,18 @@ iconName = function(name) {
                                 </div>
                             </div>
                         </div>
-                    <!-- /ko -->
                 </div>
             </div>
-
         </div>
-
 
         <div data-bind="if: editable">
             <a class="btn btn-default" data-bind="click: edit">Edit</a>
         </div>
-
     </div>
-
 </script>
-
-
-        </div><!-- end container -->
-    </div><!-- end watermarked -->
-
-
-
-
-    
-
-
-    
-</div><!-- end container copyright -->
+        </div>
+    </div>   
+</div>
 
             <script>
             var _prum = [['id', "526076f6abe53d9e35000000"],
@@ -1168,10 +1001,6 @@ iconName = function(name) {
                 s.parentNode.insertBefore(p, s);
             })();
             </script>
-
-        
-
-        
 
             <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -1189,10 +1018,8 @@ iconName = function(name) {
 
 
         <script>
-            // Mako variables accessible globally
             window.contextVars = $.extend(true, {}, window.contextVars, {
                 waterbutlerURL: "https://files.osf.io/",
-                // Whether or not this page is loaded under osf.io or another domain IE: institutions
                 isOnRootDomain: "https://osf.io/" === window.location.origin + '/',
                 cookieName: "osf",
                 apiV2Prefix: "https://api.osf.io/v2/",
@@ -1227,8 +1054,6 @@ iconName = function(name) {
                     },
                 });
             </script>
-
-
         
 <script type="text/javascript">
     window.contextVars = window.contextVars || {};
@@ -1247,6 +1072,5 @@ iconName = function(name) {
     };
 </script>
 <script src="/static/public/js/profile-settings-page.d7f528fa6cf525529377.js"></script>
-
 </body>
 @endsection
