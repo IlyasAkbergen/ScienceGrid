@@ -75,7 +75,7 @@ use App\Project;
                                     });
 
 
-                                    $.post('http://localhost/project/public/AjaxPage', {
+                                    $.post('http://localhost:8081/project/public/AjaxPage', {
 
                                         search_name: $('#search_name').val()
 
@@ -164,7 +164,7 @@ use App\Project;
                                         }
                                     });
 
-                                    $.post('http://localhost/project/public/addRightCol', {
+                                    $.post('http://localhost:8081цу/project/public/addRightCol', {
 
                                         id: id
 
@@ -266,7 +266,7 @@ use App\Project;
                                         }
                                     });
 
-                                    $.post('http://localhost/project/public/allow', {
+                                    $.post('http://localhost:8081/project/public/allow', {
 
                                         pID: id,
                                         cString: cString,
@@ -274,7 +274,7 @@ use App\Project;
 
                                     },  function(){  
                                             
-                                            window.location.replace("http://localhost/project/public/");
+                                            window.location.replace("http://localhost:8081/project/public/");
 
                                         }
                                     );
@@ -447,7 +447,7 @@ use App\Project;
                     }
                 });
 
-                $.post('http://localhost/project/public/changePermission', {
+                $.post('http://localhost:8081/project/public/changePermission', {
 
                     pID: pID,
                     uID: uID,

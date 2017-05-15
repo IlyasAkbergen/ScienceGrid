@@ -19,7 +19,7 @@ class EmploymentController extends Controller
     public function create(Request $request)
     {
         if(Auth::guest()){
-            return redirect('/editProfilePage');
+            return redirect('/');
         }else{
 
             $employment = new Employment;
@@ -42,7 +42,7 @@ class EmploymentController extends Controller
             $user_and_employments->save();
 
 
-            return redirect('/editProfilePage');
+            return redirect('/editProfilePage' . '/' . Auth::user()->id);
 
         }
     }
@@ -54,7 +54,7 @@ class EmploymentController extends Controller
         }else{
             Employment::where('employment_id', $id)->delete();
             User_and_employments::where('employment_id', $id)->delete();
-            return redirect('/editProfilePage');
+            return redirect('/editProfilePage' . '/' . Auth::user()->id);
         }
     }
 

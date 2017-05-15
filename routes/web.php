@@ -53,3 +53,7 @@ Route::get('download/{filename}', 'FileController@download');
 Route::post('changePermission', 'ContributorsController@edit');
 
 Route::post('uploadFile', 'FileController@upload');
+
+Route::get('test', function(){
+	return view('test');
+});

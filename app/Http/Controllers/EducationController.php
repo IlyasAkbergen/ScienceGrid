@@ -18,7 +18,7 @@ class EducationController extends Controller
     public function create(request $request)
     {
         if(Auth::guest()){
-            return redirect('/editProfilePage');
+            return redirect('/');
         }else{
 
             $education = new Education;
@@ -42,7 +42,7 @@ class EducationController extends Controller
             $user_and_educations->save();
 
             
-            return redirect('/editProfilePage');
+            return redirect('/editProfilePage' . '/' . Auth::user()->id);
 
         }
     }
@@ -54,7 +54,7 @@ class EducationController extends Controller
         }else{
             Education::where('education_id', $id)->delete();
             User_and_educations::where('education_id', $id)->delete();
-            return redirect('/editProfilePage');
+            return redirect('/editProfilePage' . '/' . Auth::user()->id);
         }
     }
 
