@@ -46,9 +46,12 @@ class Project_and_contributors extends Model
 		
 		$i = 0;
 		foreach ($pIDs as $pID) {
+			$project = Project::where('id', $pID->project_id)->where('privacyLevel', 'private')->first();
 			
-			$projects[$i] = Project::where('id', $pID->project_id)->first();
-			$i++;
+			if( isset($project->id) ){
+				$projects[$i] = $project; 
+				$i++;	
+			}
 
 		}
 

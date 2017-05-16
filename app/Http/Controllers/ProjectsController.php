@@ -8,6 +8,7 @@ use App\Project;
 use App\Project_and_contributors;
 use App\Project_and_files;
 use App\Category;
+use App\Investment;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -16,19 +17,25 @@ class ProjectsController extends Controller
     public function projects() {
 	   	
 	   	if( Auth::check() ){
-	   		$user_id = Auth::user()->id;
-		    $projects = Project::where('user_id', $user_id)->get();
-			$allows = Project_and_contributors::getAllowedProjects(Auth::user()->id);
+	   		if( Auth::user()->role !== 'investor' ){
+		   		$user_id = Auth::user()->id;
+			    $projects = Project::where('privacyLevel', 'public')->get();
+				$allows = Project_and_contributors::getAllowedProjects(Auth::user()->id);
 
-			$i = count($projects);
+				$i = count($projects);
 
-			foreach ($allows as $allow) {
-				
-				$projects[$i] = $allow;
-				$i++;
+				foreach ($allows as $allow) {
+					
+					$projects[$i] = $allow;
+					$i++;
+
+				}
+
+			} else {
+
+				$projects = Project::where('privacyLevel', 'public')->get();
 
 			}
-
 
 		    return view('projects', ['projects' => $projects]); //edited
 	   	}else{
@@ -92,7 +99,8 @@ class ProjectsController extends Controller
 		}else{
 			$project = Project::find($id);
 			$files = Project_and_files::where('project_id', $id)->get();
-        	return view('show', compact('project', 'files'));
+			$investments = Investment::where('project_id', $id)->get();
+        	return view('show', compact('project', 'files', 'investments'));
         }
 	}
 

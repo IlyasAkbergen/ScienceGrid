@@ -59,7 +59,22 @@
                                 <input placeholder="Re-enter password" id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="role[]" class="col-md-4 control-label"  style="margin-right: 15px;">Role</label>
 
+                            <select name="role" id="role[]>" class="selectpicker">
+                                <option value="developer">
+                                   Developer
+                                </option>
+                                
+                                <option value="investor">
+                                   Investor
+                                </option>
+                            </select>
+                        </div>
+
+                        
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

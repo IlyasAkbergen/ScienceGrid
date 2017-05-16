@@ -46,9 +46,9 @@ class ContributorsController extends Controller
 
     public static function canWrite($pID, $uID){
 
-        $perm = Project_and_contributors::where('project_id', $pID)->where('user_id', $uID)->first()->permission;
-
-        if( $perm == 'Read+Write' ){
+        $perm = Project_and_contributors::where('project_id', $pID)->where('user_id', $uID)->first();
+    
+        if( isset($perm->permission) && $perm == 'Read+Write' ){
             return true;
         }else{
             return false;

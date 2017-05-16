@@ -57,3 +57,5 @@ Route::post('uploadFile', 'FileController@upload');
 Route::get('test', function(){
 	return view('test');
 });
+
+Route::post('invest', 'InvestmentsController@create');

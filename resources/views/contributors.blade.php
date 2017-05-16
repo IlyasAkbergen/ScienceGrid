@@ -164,7 +164,7 @@ use App\Project;
                                         }
                                     });
 
-                                    $.post('http://localhost:8081цу/project/public/addRightCol', {
+                                    $.post('http://localhost:8081/project/public/addRightCol', {
 
                                         id: id
 
