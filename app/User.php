@@ -28,9 +28,7 @@ class User extends Authenticatable
     ];
 
     public function allow(){
-
         return $this->hasMany(Project_and_contributors::class);
-    
     }
 
     public static function getUsername($user_id){

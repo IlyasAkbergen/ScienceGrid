@@ -13,16 +13,16 @@ class ContributorsController extends Controller
 {
     public function show($id)
     {
-        if(Auth::guest()){
+        if (Auth::guest()) {
             return redirect('/');
-        }else{
-            $contributors = array(); 
-            $contributors = Project_and_contributors::getContributor($id); 
-            
+        } else {
+            $contributors = array();
+            $contributors = Project_and_contributors::getContributor($id);
+
             return view('contributors', compact('contributors', 'id'));
         }
     }
-    
+
     public function edit(Request $request){
 
         $allow = Project_and_contributors::where('project_id', $request->pID)->where('user_id', $request->uID)->first();
@@ -30,16 +30,15 @@ class ContributorsController extends Controller
         $allow->save();
 
         return 0;
-
     }
 
     public static function canRead($pID, $uID){
 
         $perm = Project_and_contributors::where('project_id', $pID)->where('user_id', $uID)->first()->permission;
 
-        if( $perm == 'Read' ){
+        if ( $perm == 'Read' ) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -50,9 +49,8 @@ class ContributorsController extends Controller
     
         if( isset($perm->permission) && $perm == 'Read+Write' ){
             return true;
-        }else{
+        } else {
             return false;
         }
-        
     }
 }

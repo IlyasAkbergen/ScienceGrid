@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
-
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -26,35 +25,26 @@
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    
-
-                </div>
-                
-               
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    
                     <ul class="nav navbar-nav">
                         &nbsp;
                     </ul>
-
-                    
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ route('login') }}"><button class="btn btn-primary btn-sm m-l-md">Sign In</button></a></li>
-                        <li><a href="{{ route('register') }}"><button class="btn btn-success btn-sm m-l-md">Sign Up</button></a></li>
+                        <li>
+                            <a href="{{ route('login') }}">
+                                <button class="btn btn-primary btn-sm m-l-md">Sign In</button>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('register') }}">
+                                <button class="btn btn-success btn-sm m-l-md">Sign Up</button>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>        
         <div class="container">
-             
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel panel-default">
@@ -112,7 +102,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>

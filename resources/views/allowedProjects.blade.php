@@ -14,13 +14,10 @@
                     <th>Title</th>
                     <th>Contributors</th>
                     <th>Modified</th>
-                    
                 </thead>
                 <tbody>
                     <?php 
-
                         $allows = Allow::getAllowedProjects(Auth::user()->id);
-
                     ?>
 
                     @foreach ($allows as $allow)
@@ -39,7 +36,7 @@
                             </td>
                             <td class="table-text">
                                 <div>
-            <!-- modified budet -->
+                                    <!-- modified  -->
                                 </div>
                             </td>
                         </tr>

@@ -29,13 +29,12 @@ class EmploymentController extends Controller
             $employment->startDate = $request->startmonth . ', ' . $request->startyear;
             $employment->endDate = $request->endmonth . ', ' . $request->endyear;
             
-            if($request->ongoing === 'on'){
+            if ($request->ongoing === 'on') {
                 $employment->ongoing = 1;
-            }else{
+            } else {
                 $employment->ongoing = 0;
             }
             $employment->save();
-    
             $user_and_employments = new User_and_employments;
             $user_and_employments->user_id = Auth::user()->id;
             $user_and_employments->employment_id = Employment::all()->last()->employment_id;
@@ -57,5 +56,4 @@ class EmploymentController extends Controller
             return redirect('/editProfilePage' . '/' . Auth::user()->id);
         }
     }
-
 }

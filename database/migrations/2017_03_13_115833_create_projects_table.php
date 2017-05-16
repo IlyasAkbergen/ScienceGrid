@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->integer('category');
-            $table->string('privacyLevel')->nullable();
+            $table->string('privacyLevel');
             $table->timestamps();
             $table->boolean('needInvest')->default('true');
             $table->integer('user_id');

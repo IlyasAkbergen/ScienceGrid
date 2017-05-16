@@ -68,21 +68,6 @@
                   <ul class="nav nav-stacked nav-pills">
                       <li class="active">
                         <a href="#">Profile information</a></li>
-
-                     <!--  <li class="">
-                        <a href="/settings/account/">Account settings</a></li>
-
-                      <li class="">
-                        <a href="/settings/addons/">Configure add-on accounts</a></li>
-
-                      <li class="">
-                        <a href="/settings/notifications/">Notifications</a></li>
-
-                      <li class="">
-                        <a href="/settings/applications/">Developer apps</a></li>
-
-                      <li class="">
-                        <a href="/settings/tokens/">Personal access tokens</a></li> -->
                   </ul>
                 </div>
              </div>

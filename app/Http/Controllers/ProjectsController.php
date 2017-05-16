@@ -23,7 +23,6 @@ class ProjectsController extends Controller
 				$allows = Project_and_contributors::getAllowedProjects(Auth::user()->id);
 
 				$i = count($projects);
-
 				foreach ($allows as $allow) {
 					
 					$projects[$i] = $allow;
@@ -37,21 +36,20 @@ class ProjectsController extends Controller
 
 			}
 
-		    return view('projects', ['projects' => $projects]); //edited
+		    return view('projects', ['projects' => $projects]); 
 	   	}else{
 	   		return view('auth.login');
 	   	}
-    
     }
 
     public function create(Request $request) {
-		
+
 		$destinationPath = public_path() . '/uploads/';
 
 	    $validator = Validator::make($request->all(), [
 	        'title'  => 'required|max:255'
 	    ]);
-	    
+
 	    if ($validator->fails()) {
 	        return redirect('/')
 	            ->withInput()
@@ -62,14 +60,14 @@ class ProjectsController extends Controller
 	    $project->title = $request->title;
 	    $project->description = $request->description;
 	    $project->user_id = Auth::user()->id;
-	    $project->category = $request->category; 
-	    
+	    $project->category = $request->category;
+
 	    $project->save();
 
 	    if($request->hasFile('uploadFile')) {
-            
+
         	$file = $request->file('uploadFile');
-        	
+
         	if($file->isValid()) {
                 $file->move(public_path('uploads\\'), $file->getClientOriginalName());
             }
@@ -84,9 +82,9 @@ class ProjectsController extends Controller
 	}
 
 	public function delete($id) {
-	    if(Auth::guest()){
+	    if (Auth::guest()) {
 			return redirect('/');
-		}else{
+		} else {
 		    Project::findOrFail($id)->delete();
 		   	return redirect('/');
 		}
@@ -94,9 +92,9 @@ class ProjectsController extends Controller
 
 	public function show($id) {
 
-		if(Auth::guest()){
+		if (Auth::guest()) {
 			return redirect('/');
-		}else{
+		} else {
 			$project = Project::find($id);
 			$files = Project_and_files::where('project_id', $id)->get();
 			$investments = Investment::where('project_id', $id)->get();
@@ -105,15 +103,15 @@ class ProjectsController extends Controller
 	}
 
 	public function edit(Request $request){
-		if(Auth::guest()){
+		if (Auth::guest()) {
 			return redirect('/');
-		}else{
+		} else {
 			$project = Project::find($request->id);
 			$project->title = $request->title;
 			$project->description = $request->description;
 			$project->category = $request->category;
 			$project->save();
-			
+
 			return redirect()->route('show', ['id' => $request->id]);
 		}
 	}

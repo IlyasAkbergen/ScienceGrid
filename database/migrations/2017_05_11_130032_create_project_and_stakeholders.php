@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAllowsTable extends Migration
+class CreateProjectAndStakeholders extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateAllowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_and_contributors', function (Blueprint $table) {
+        Schema::create('project_and_stakeholders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id');
-            $table->integer('user_id');
-            $table->string('permissions');
+            $table->integer('stakeholder_id');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateAllowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_and_contributors');
+        //
     }
 }

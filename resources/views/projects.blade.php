@@ -1,16 +1,13 @@
 @extends('layouts.app')
-
 @section('content')
 <?php 
     use App\User;
     use App\Project_and_contributors; 
     use App\Category;   
 ?>
-
     <div class="container">
         @if(Auth::user()->role != 'investor')
         <h1 class="col-sm-7" style="margin: -4px 0 12px 100px">Dashboard</h1>
-
             <button type="button" class="btn btn-success btn-sm m-l-md" data-toggle="modal" data-target="#myModal" >
                 <i class="fa fa-plus"></i>Create new project
             </button>
@@ -95,7 +92,6 @@
               </div>
             </div>
         @endif
-
         @if (count($projects) > 0)
         <div class="panel panel-default" style="margin-top: 10px;">
             <div class="panel-body">
@@ -136,13 +132,10 @@
                         
                             @if(Auth::user()->role != 'investor')
                             <td class="table-text">
-                                
                                 {{ $project->updated_at }}
-
                             </td>
                             @endif
                         </tr>
-
                         @endforeach
                     </tbody>
                 </table>
@@ -150,7 +143,6 @@
             </div>
         </div>
          @endif
-
     </div>
 @endsection
 
