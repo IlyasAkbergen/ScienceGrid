@@ -20,6 +20,7 @@ class FileController extends Controller
     	if($request->hasFile('uploadFile')) {
             
         	$file = $request->file('uploadFile');
+            $size = $request->file('uploadFile')->getClientSize();
         	
         	if($file->isValid()) {
                 $file->move(public_path('uploads\\'), $file->getClientOriginalName());
@@ -29,6 +30,7 @@ class FileController extends Controller
 		$p_and_file = new Project_and_files;
 		$p_and_file->project_id = $request->project_id;
 		$p_and_file->file = $file->getClientOriginalName();
+        $p_and_file->size = $size;
 		$p_and_file->save();
 
 		return redirect('show/' . $request->project_id);

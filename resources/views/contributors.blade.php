@@ -9,8 +9,10 @@ use App\Project;
 <nav class="navbar">
     <div class="container">
         <ul class="nav navbar-nav">
+            <li><a href="{{url('show'). '/' . $id}}" style="padding: 7px;">{{Project::where('id', $id)->first()->title}}</a></li>
             <li><a href="{{url('show/settings'). '/' . $id}}" style="padding: 7px;">Settings</a></li>
             <li><a href="#" class="nav-link active" style="background: #337ab7; color: white; padding: 7px;">Contributors</a></li>
+            <li><a href="{{url('show/wiki'). '/' . $id . '/firstWiki'}}" style="padding: 7px;">Wiki</a></li>
         </ul>
     </div>
 </nav>

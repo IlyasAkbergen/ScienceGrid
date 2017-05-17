@@ -9,6 +9,7 @@ use App\Project_and_contributors;
 use App\Project_and_files;
 use App\Category;
 use App\Investment;
+use App\Wiki;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -78,6 +79,13 @@ class ProjectsController extends Controller
 		$p_and_file->file = $file->getClientOriginalName();
 		$p_and_file->save();
 
+		$wiki = new Wiki;
+		$wiki->project_id = Project::all()->last()->id;
+		$wiki->user_id = Auth::user()->id;
+		$wiki->title = "firstWiki";
+		$wiki->text = "First wiki page of your project";
+		$wiki->save();
+		
 	    return redirect('/');
 	}
 
@@ -98,10 +106,12 @@ class ProjectsController extends Controller
 			$project = Project::find($id);
 			$files = Project_and_files::where('project_id', $id)->get();
 			$investments = Investment::where('project_id', $id)->get();
-        	return view('show', compact('project', 'files', 'investments'));
+			$wikis = Wiki::where('project_id', $id)->get();
+        	return view('show', compact('project', 'files', 'investments', 'wikis'));
         }
 	}
 
+	
 	public function edit(Request $request){
 		if (Auth::guest()) {
 			return redirect('/');

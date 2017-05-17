@@ -9,7 +9,7 @@ Route::get('/', 'ProjectsController@projects');
 
 Route::post('/project', 'ProjectsController@create');
 
-Route::get('/show/{id}', 'ProjectsController@show');
+Route::get('/show/{id}', 'ProjectsController@show')->name('show');
 
 Route::post('/edit', 'ProjectsController@edit');
 
@@ -28,6 +28,8 @@ Route::get('addProject', function () { return view('addProject'); });
 Route::get('/show/settings/{pID}', 'SettingsController@show');
 
 Route::get('/show/contributors/{id}', 'ContributorsController@show');
+
+Route::get('/show/wiki/{id}/{wTitle}', 'WikisController@show')->name('showWiki');
 
 Route::get('profile/{id}', 'ProfileController@show');
 
@@ -58,3 +60,7 @@ Route::get('test', function(){
 });
 
 Route::post('invest', 'InvestmentsController@create');
+
+Route::post('editWiki', 'WikisController@edit');
+
+Route::post('addWiki', 'WikisController@add');

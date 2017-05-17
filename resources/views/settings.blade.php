@@ -10,8 +10,10 @@
 	<nav class="navbar">
             <div class="container">
                 <ul class="nav navbar-nav">
+    				<li><a href="{{url('show'). '/' . $project->id}}" style="padding: 7px;">{{$project->title}}</a></li>
     				<li><a href="#" class="nav-link active" style="background: #337ab7; color: white; padding: 7px;">Settings</a></li>             
                 	<li><a href="{{url('show/contributors'). '/' . $project->id}}" style="padding: 7px;">Contributors</a></li>
+                	<li><a href="{{url('show/wiki'). '/' . $project->id . '/firstWiki'}}" style="padding: 7px;">Wiki</a></li>
                 </ul>
             </div>
         </nav>
@@ -42,14 +44,12 @@
 	                                   {{ $option->name }}
 	                                </option><?php
 	                            }
-	                        
 	                        ?>
-
 	                    </select>
 			            <i>(For descriptive purposes)</i>
 			        </div>
 		        
-		     	    <input type="hidden" name="id" value="{{ $project->id }}">
+		     	    <input type="hidden" name="id" value="{{$project->id}}">
 				    <div class="form-group">
 			            <label for="title">Title:</label>
 			            <input class="form-control" type="text" maxlength="200" placeholder="{{ $project->title }} -Required" name="title"><span class="validationMessage" style="display: none;"></span>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectAndStakeholders extends Migration
+class CreateWikisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateProjectAndStakeholders extends Migration
      */
     public function up()
     {
-        Schema::create('project_and_stakeholders', function (Blueprint $table) {
+        Schema::create('wikis', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id');
-            $table->integer('stakeholder_id');
+            $table->integer('user_id');
+            $table->string('title');
+            $table->text('text')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +30,6 @@ class CreateProjectAndStakeholders extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('wikis');
     }
 }
