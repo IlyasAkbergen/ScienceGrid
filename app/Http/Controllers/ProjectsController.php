@@ -12,6 +12,7 @@ use App\Investment;
 use App\Wiki;
 use App\P_and_tag;
 use App\Tag;
+use App\Activity;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -41,7 +42,7 @@ class ProjectsController extends Controller
 
 		    return view('projects', ['projects' => $projects]); 
 	   	}else{
-	   		return view('auth.login');
+	   		return view('home');
 	   	}
     }
 
@@ -67,9 +68,21 @@ class ProjectsController extends Controller
 
 	    $project->save();
 
+	    $activity = new Activity;
+	    $activity->user_id = Auth::user()->id;
+	    $activity->project_id = Project::all()->last()->id;
+	    $activity->activity = "created project";
+		$activity->save();
+
 	    if($request->hasFile('uploadFile')) {
 
         	$file = $request->file('uploadFile');
+
+        	$activity = new Activity;
+		    $activity->user_id = Auth::user()->id;
+		    $activity->project_id = Project::all()->last()->id;
+		    $activity->activity = "uploaded new file";
+			$activity->save();
 
         	if($file->isValid()) {
                 $file->move(public_path('uploads\\'), $file->getClientOriginalName());
@@ -88,6 +101,12 @@ class ProjectsController extends Controller
 		$wiki->text = "First wiki page of your project";
 		$wiki->save();
 		
+		$activity = new Activity;
+	    $activity->user_id = Auth::user()->id;
+	    $activity->project_id = Project::all()->last()->id;
+	    $activity->activity = "created new wiki page";
+		$activity->save();
+
 	    return redirect('/');
 	}
 
@@ -116,7 +135,9 @@ class ProjectsController extends Controller
 				$tags[$i] = Tag::where('id', $pt->tag_id)->first();
 				$i++;
 			}
-        	return view('show', compact('project', 'files', 'investments', 'wikis', 'tags'));
+
+			$activities = Activity::where('project_id', $id)->get();
+        	return view('show', compact('project', 'files', 'investments', 'wikis', 'tags', 'activities'));
         }
 	}
 
@@ -130,6 +151,12 @@ class ProjectsController extends Controller
 			$project->description = $request->description;
 			$project->category = $request->category;
 			$project->save();
+
+			$activity = new Activity;
+		    $activity->user_id = Auth::user()->id;
+		    $activity->project_id = $request->id;
+		    $activity->activity = "updated project: changed title, description and category";
+			$activity->save();
 
 			return redirect()->route('show', ['id' => $request->id]);
 		}

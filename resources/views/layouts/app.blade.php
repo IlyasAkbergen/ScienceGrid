@@ -67,7 +67,7 @@
                 
                 <ul class="nav navbar-nav">
                   <li><a href="{{ url('/') }}">Dashboard</a></li>
-                  <li><a href="#">Browse</a></li>
+                  <li><a href="{{ url('browse') }}">Browse</a></li>
                 </ul>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

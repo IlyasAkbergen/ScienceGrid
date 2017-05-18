@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Project;
 use App\Project_and_contributors;
 use App\Category;
+use App\Activity;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -28,6 +29,12 @@ class ContributorsController extends Controller
         $allow = Project_and_contributors::where('project_id', $request->pID)->where('user_id', $request->uID)->first();
         $allow->permission = $request->permission;
         $allow->save();
+
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->project_id = $request->pID;
+        $activity->activity = "changed permission for contributor";
+        $activity->save();
 
         return 0;
     }

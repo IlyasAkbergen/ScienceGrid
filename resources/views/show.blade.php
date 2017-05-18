@@ -85,7 +85,9 @@ use App\Http\Controllers\ContributorsController;
 
 
             </div> 
-            
+            @if( Auth::user()->role !== 'investor' )
+                 @if( $project->user_id === Auth::user()->id || Auth::user()->role === 'admin' || ContributorsController::canWrite($project->id, Auth::user()->id) )
+
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
@@ -101,16 +103,27 @@ use App\Http\Controllers\ContributorsController;
 
                         $tags_string = substr($tags_string, 0, -1);
                     ?>
-                    <div class="panel-body" onload="currentTags('{{$tags_string}}')">
+                    <div class="panel-body">
                         
-                        <input data-role="tagsinput" id="fileTags" style="display: none;">
+                        <input data-role="tagsinput" value="{{$tags_string}}" id="tags"/>
+                        <script type="text/javascript">
+                          $(document).ready(function() {
+                                $('#tags').on('beforeItemRemove', function (event) {
+                                    alert('ok');
+                                    console.log('ok');
+                                });
+                            
+                           });
+
+                        </script>
                           
-                        <div class="col-sm-12 col-sm-offset-10"><button type="submit" class="btn btn-success" onclick="saveTags({{$project->id}})">Save</button></div>
+                        <div class="col-sm-12 col-sm-offset-10"><br><button type="submit" class="btn btn-success" onclick="saveTags({{$project->id}})">Save</button></div>
                     </div>
                 </div>
-                
-            </div>  
-
+            </div>
+                @endif
+            @endif  
+            
             <script type="text/javascript">
                 function saveTags(id){
                     $.ajaxSetup({
@@ -121,22 +134,18 @@ use App\Http\Controllers\ContributorsController;
 
                     $.post('http://localhost:8081/project/public/saveTags', {
                         id: id,
-                        tags: document.getElementById('fileTags').value
+                        tags: document.getElementById('tags').value
                         },  function(response){  
                            
                         }
                     ); 
                 }
             </script>
-            <script type="text/javascript">
-                function currentTags(tags_string){
-                    document.getElementById('fileTags').value = tags_string;
-                }
-            </script>
+            
             <!-- TAGS -->
         </div>
         <div class="col-sm-12">
-                        <div class="col-sm-6">
+            <div class="col-sm-6">
                <div id="addonWikiWidget" class="" >
                   <div class="panel panel-default" name="wiki">
                      <div class="panel-heading clearfix">
@@ -301,5 +310,40 @@ use App\Http\Controllers\ContributorsController;
             </div>
             @endif
         </div>
+        @if($project->user_id === Auth::user()->id || Auth::user()->role === 'admin' || ContributorsController::canWrite($project->id, Auth::user()->id))
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+               <div id="addonWikiWidget" class="" >
+                  <div class="panel panel-default" name="wiki">
+                     <div class="panel-heading clearfix">
+                        <h3 class="panel-title">Recent activities</h3>
+                        <div class="pull-right">
+                           <a href="/f3fyd/wiki/">  <i class="fa fa-external-link"></i> </a>
+                        </div>
+                     </div>
+                     <div class="panel-body">
+                        @foreach($activities as $act)
+                        <div id="markdownRender" class="break-word scripted preview" style="display: block;">
+                           <b>
+                                <a href="{{url('/show/wiki') . '/' . $project->id . '/' . $wiki->title }}">{{ User::where('id', $act->user_id)->first()->fullName }}</a>
+                            </b>
+                           <p><em>{{$act->activity}} at {{ $act->created_at }}</em></p>
+                        </div>
+                        <hr>
+                        @endforeach
+                        <style>
+                           .preview {
+                           max-height: 300px;
+                           overflow-y: auto;
+                           padding-right: 10px;
+                           }
+                        </style>
+                     </div>
+                  </div>
+               </div>
+               <!-- Files -->
+            </div>
+        </div>
+        @endif
     </div>
 @endsection

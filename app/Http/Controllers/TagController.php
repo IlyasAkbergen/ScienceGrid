@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tag;
 use App\Project;
+use App\Activity;
 use App\P_and_tag;
 
 class TagController extends Controller
@@ -37,11 +38,18 @@ class TagController extends Controller
                 $p_and_tag->project_id = $pID;
                 $p_and_tag->tag_id = Tag::all()->last()->id;
                 $p_and_tag->save();
+
+                
             }
-   
-        }        
+        }
+
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->project_id = $pID;
+        $activity->activity = "added new tags";
+        $activity->save();
+        
         
         return redirect()->route('show', ['id' => $pID]);
-        // return $tags;
     }
 }

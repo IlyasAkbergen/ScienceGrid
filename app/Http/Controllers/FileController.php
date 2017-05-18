@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Response;
 use App\Project_and_files;
-
+use App\Activity;
+use Auth;
 class FileController extends Controller
 {
    
@@ -32,6 +33,13 @@ class FileController extends Controller
 		$p_and_file->file = $file->getClientOriginalName();
         $p_and_file->size = $size;
 		$p_and_file->save();
+
+        $activity = new Activity;
+        $activity->user_id = Auth::user()->id;
+        $activity->project_id = $request->project_id;
+        $activity->activity = "uploaded new file";
+        $activity->save();
+
 
 		return redirect('show/' . $request->project_id);
     }

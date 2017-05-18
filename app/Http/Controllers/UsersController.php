@@ -7,12 +7,23 @@ use App\Project;
 use App\Project_and_contributors;
 use App\Category;
 use App\User;
+
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
 class UsersController extends Controller
 {
-   
+    
+    public function investors(){
+
+        if( Auth::check() ){
+            $investors = User::where('role', 'investor')->get();
+            return view('investors', compact('investors'));
+        }else{
+            return view('home');
+        }
+    }
+
     public function update(Request $request)
     {
         if( Auth::check() ){

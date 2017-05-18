@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Wiki;
+use App\Activity;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -29,6 +30,13 @@ class WikisController extends Controller
 
 			$id = $wiki->project_id;
 
+			$activity = new Activity;
+	        $activity->user_id = Auth::user()->id;
+	        $activity->project_id = $id;
+	        $activity->activity = "edited wiki pages content";
+	        $activity->save();
+
+
 			return redirect()->route('showWiki', ['id' => $id, 'wTitle' => $wiki->title]);		
 		}	
 	}
@@ -43,6 +51,13 @@ class WikisController extends Controller
 			$wiki->user_id = Auth::user()->id;
 			$wiki->text = "Add notes to your new wiki page...";
 			$wiki->save();
+
+			$activity = new Activity;
+	        $activity->user_id = Auth::user()->id;
+	        $activity->project_id = $request->project_id;
+	        $activity->activity = "added new wiki page";
+	        $activity->save();
+
 
 			return redirect()->route('showWiki', ['id' => $request->project_id, 'wTitle' => $wiki->title]);		
 		}
