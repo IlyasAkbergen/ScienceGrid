@@ -64,3 +64,5 @@ Route::post('invest', 'InvestmentsController@create');
 Route::post('editWiki', 'WikisController@edit');
 
 Route::post('addWiki', 'WikisController@add');
+
+Route::post('/saveTags', 'TagController@add');

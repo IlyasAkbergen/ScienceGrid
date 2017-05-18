@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Project_and_tags extends Model
+class P_and_tag extends Model
 {
-    
+    protected $fillable = [
+        'id', 'project_id', 'tag_id', 
+    ];
 }

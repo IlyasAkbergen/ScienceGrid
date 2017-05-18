@@ -112,10 +112,10 @@
                      <div id="wikiViewPanel" data-bind="css: { 'osf-panel-body-flex': $root.singleVis() !== 'view' }" class="panel-body osf-panel-body-flex">
                         <div id="wikiViewRender" class="markdown-it-view scripted" style="display: block;">
                           
-
-
+                        <script scr="https://unpkg.com/vue@2.3.3"></script>
+                        <div id="app-2">
                            <pre id="wiki_view">{{$wiki->text}}</pre>
-                        
+                        </div>
 
 
                         </div>
@@ -148,8 +148,7 @@
                                   <div id="wmd-button-bar"></div>
                                   <div id="editor">
 
-
-                                    <textarea rows="12" cols="55" name="wiki_content" id="wiki_content">{{$wiki->text}}</textarea>
+                                    <textarea rows="12" cols="55" name="wiki_content" id="wiki_content" oninput="wikiChange(this.value)">{{$wiki->text}}</textarea>
                                     <input type="hidden" name="wiki_id" value="{{$wiki->id}}"></input>
 
 
@@ -158,14 +157,24 @@
                             </div>
                            </div>
                         </div>
+                        
+                        <script>
+                           new Vue({
+                             el: 'app-2',
+                             data: {
+                               wiki_text: '',
+                             }
+                           })
+                        </script>
                         <script type="text/javascript">
-                           $(document).ready(function() {
-                              $('#wiki_content').change(function(){
-                                 var x = document.getElementById("wiki_content").innerHTML;
-                                 document.getElementById("wiki_view").innerHTML = x;
-                                 return 0;
-                              });
-                           });
+                           function wikiChange(val){
+                              
+                            // var x = document.getElementById("wiki_content").value;
+                               document.getElementById("wiki_view").innerHTML = val;
+                              
+                              // return 0;
+                              // alert(val);
+                           }
                         </script>
 
                         <div class="panel-footer">

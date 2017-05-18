@@ -12,6 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.fullName', 'ScienceGrid') }}</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-tagsinput.css') }}">
     <style>
         #example>tbody>tr:hover {
             background-color: #ccc;
@@ -29,6 +30,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/i18n/defaults-en_US.js"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{ asset('js/bootstrap-tagsinput.js') }}"></script>
+    
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),

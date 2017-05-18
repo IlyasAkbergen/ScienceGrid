@@ -10,6 +10,8 @@ use App\Project_and_files;
 use App\Category;
 use App\Investment;
 use App\Wiki;
+use App\P_and_tag;
+use App\Tag;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
@@ -107,7 +109,14 @@ class ProjectsController extends Controller
 			$files = Project_and_files::where('project_id', $id)->get();
 			$investments = Investment::where('project_id', $id)->get();
 			$wikis = Wiki::where('project_id', $id)->get();
-        	return view('show', compact('project', 'files', 'investments', 'wikis'));
+			$p_and_tags = P_and_tag::where('project_id', $id)->get();
+			$tags = array();
+			$i = 0;
+			foreach ($p_and_tags as $pt) {
+				$tags[$i] = Tag::where('id', $pt->tag_id)->first();
+				$i++;
+			}
+        	return view('show', compact('project', 'files', 'investments', 'wikis', 'tags'));
         }
 	}
 

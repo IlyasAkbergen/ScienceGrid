@@ -17,6 +17,7 @@ class CreateProjectAndTagsTable extends Migration
             $table->increments('id');
             $table->integer('project_id');
             $table->integer('tag_id');
+            $table->timestamps();
         });
     }
 

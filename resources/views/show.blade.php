@@ -26,62 +26,117 @@ use App\Http\Controllers\ContributorsController;
 
 @section('content')
     <div class="container">
+        
         <div class="col-sm-offset-0 col-sm-12">
-            <h3>{{ $project->title }}</h3>
+            <div class="col-sm-6">
+                <h3>{{ $project->title }}</h3>
            
                 @include('common.errors')
             
-            <div class="col-sm-1">Contributors:</div>
-            <div class="col-sm-11">
-                
-                 <ul style=" list-style-type: none; margin: 0; padding: 0;">
-                    <li>
-                        <b style="color: #337AB7;"><?php echo User::getUsername($project->user_id) . "\n"; ?></b><br>
-                    </li>
-                    <?php  
-                        $names = array(); 
-                        $names = Project_and_contributors::getContributor($project->id); 
-                        
-                        foreach ($names as $names) {
-                            ?><li> <?php echo $names;?> </li><?php
-                                    
-                        }
+                <div class="col-sm-2">Contributors:</div>
+                <div class="col-sm-10">
+                    
+                     <ul style=" list-style-type: none; margin: 0; padding: 0;">
+                        <li>
+                            <b style="color: #337AB7;"><?php echo User::getUsername($project->user_id) . "\n"; ?></b><br>
+                        </li>
+                        <?php  
+                            $names = array(); 
+                            $names = Project_and_contributors::getContributor($project->id); 
+                            
+                            foreach ($names as $names) {
+                                ?><li> <?php echo $names;?> </li><?php
+                                        
+                            }
 
-                    ?>
-                </ul> 
-            </div>
+                        ?>
+                    </ul> 
+                </div>
 
-            <div class="col-sm-12">Date created: {{ $project->created_at . " | "}} Last updated: {{ $project->updated_at }} </div>
-            <div class="col-sm-12">Category: {{ Category::where('id', $project->category)->first()->name }}</div>
-            <div class="col-sm-12">Description: {{ $project->description }}</div>
-            <div class="col-sm-12">Privacy level: {{ $project->privacyLevel }}</div>
-            
-            @if(count($investments)>0)
-            <div class="col-sm-12">Investments: </div>
-                <div class="col-sm-12">
-                <div class="col-sm-5 col-sm-offset-1">
-                    <table class="table table-striped">
-                        <thead>
-                            <th>Investor</th>
-                            <th>Sum</th>
-                            <th>Date</th>
-                        </thead>
-                        <tbody>
-                            @foreach($investments as $investment)
-            
-                            <tr>
-                                <td><a href="">{{ User::where('id', $investment->user_id)->first()->fullName}}</a></td>
-                                <td>{{$investment->sum}}</td>
-                                <td>{{$investment->created_at}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                </div>
-            @endif    
+                <div class="col-sm-12">Date created: {{ $project->created_at . " | "}} Last updated: {{ $project->updated_at }} </div>
+                <div class="col-sm-12">Category: {{ Category::where('id', $project->category)->first()->name }}</div>
+                <div class="col-sm-12">Description: {{ $project->description }}</div>
+                <div class="col-sm-12">Privacy level: {{ $project->privacyLevel }}</div>
                 
+                @if(count($investments)>0)
+                <div class="col-sm-12">Investments: </div>
+                    <div class="col-sm-12">
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <table class="table table-striped">
+                            <thead>
+                                <th>Investor</th>
+                                <th>Sum</th>
+                                <th>Date</th>
+                            </thead>
+                            <tbody>
+                                @foreach($investments as $investment)
+                
+                                <tr>
+                                    <td><a href="">{{ User::where('id', $investment->user_id)->first()->fullName}}</a></td>
+                                    <td>{{$investment->sum}}</td>
+                                    <td>{{$investment->created_at}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                @endif   
+
+
+            </div> 
+            
             <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title">Tags</h3>
+                        <div class="pull-right">
+                        </div>
+                    </div>
+                    <?php 
+                        $tags_string = "";
+                        foreach ($tags as $tag){
+                            $tags_string = $tags_string . $tag->name . ',';
+                        } 
+
+                        $tags_string = substr($tags_string, 0, -1);
+                    ?>
+                    <div class="panel-body" onload="currentTags('{{$tags_string}}')">
+                        
+                        <input data-role="tagsinput" id="fileTags" style="display: none;">
+                          
+                        <div class="col-sm-12 col-sm-offset-10"><button type="submit" class="btn btn-success" onclick="saveTags({{$project->id}})">Save</button></div>
+                    </div>
+                </div>
+                
+            </div>  
+
+            <script type="text/javascript">
+                function saveTags(id){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.post('http://localhost:8081/project/public/saveTags', {
+                        id: id,
+                        tags: document.getElementById('fileTags').value
+                        },  function(response){  
+                           
+                        }
+                    ); 
+                }
+            </script>
+            <script type="text/javascript">
+                function currentTags(tags_string){
+                    document.getElementById('fileTags').value = tags_string;
+                }
+            </script>
+            <!-- TAGS -->
+        </div>
+        <div class="col-sm-12">
+                        <div class="col-sm-6">
                <div id="addonWikiWidget" class="" >
                   <div class="panel panel-default" name="wiki">
                      <div class="panel-heading clearfix">
@@ -175,11 +230,12 @@ use App\Http\Controllers\ContributorsController;
                     </div>
                   <!-- end .panel-body -->
                </div>
-               </div>
+           </div>
 
 
 
-            
+            <!-- TAGS -->
+
             @if( $project->needInvest && Auth::user()->role === 'investor' )
                
                 <div class="col-sm-12">
