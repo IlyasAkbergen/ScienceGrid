@@ -2,6 +2,7 @@
 use App\User;
 use App\Project_and_contributors;
 use App\Category;
+use App\Project_and_files;
 use Auth\Article as BA;
 use App\Http\Controllers\ContributorsController;
 ?>
@@ -66,6 +67,7 @@ use App\Http\Controllers\ContributorsController;
                             <thead>
                                 <th>Investor</th>
                                 <th>Sum</th>
+                                <th>Comment</th>
                                 <th>Date</th>
                             </thead>
                             <tbody>
@@ -74,6 +76,7 @@ use App\Http\Controllers\ContributorsController;
                                 <tr>
                                     <td><a href="">{{ User::where('id', $investment->user_id)->first()->fullName}}</a></td>
                                     <td>{{$investment->sum}}</td>
+                                    <td>{{$investment->notes}}</td>
                                     <td>{{$investment->created_at}}</td>
                                 </tr>
                                 @endforeach
@@ -278,7 +281,7 @@ use App\Http\Controllers\ContributorsController;
                                         <div class="input-group m-b-lg">
                                             <label for="task-name" class="col-sm-2 control-label">Sum:</label>
                                             <input class="form-control col-sm-2" name="sum" id="sum-name" required>
-                                            <label for="notes" class="col-sm-2 control-label">Comments:</label>
+                                            <label for="notes" class="col-sm-2 control-label">Notes:</label>
                                             <input class="form-control col-sm-2" name="notes" id="notes" required>
                                             <input type="hidden" name="project_id" value="{{$project->id}}">
                                             <input type="submit" value="Invest" style="margin-top: 20px;" class="btn btn-success col-sm-4">
@@ -324,10 +327,13 @@ use App\Http\Controllers\ContributorsController;
                      <div class="panel-body">
                         @foreach($activities as $act)
                         <div id="markdownRender" class="break-word scripted preview" style="display: block;">
-                           <b>
-                                <a href="{{url('/show/wiki') . '/' . $project->id . '/' . $wiki->title }}">{{ User::where('id', $act->user_id)->first()->fullName }}</a>
-                            </b>
+                          @if($act->activity === 'uploaded new file')
+                            <b><a href="{{url('/profile') . '/' . $act->user_id}}">{{ User::where('id', $act->user_id)->first()->fullName }}</a></b>
+                            <p><em>{{$act->activity . " "}}<a href="{{ url('download/' . Project_and_files::where('created_at', $act->created_at)->first()->file) }}"><span class="glyphicon glyphicon-paperclip"></span>{{Project_and_files::where('created_at', $act->created_at)->first()->file}}</a> at {{$act->created_at }}</em></p> 
+                          @else 
+                           <b><a href="{{url('/profile') . '/' . $act->user_id}}">{{ User::where('id', $act->user_id)->first()->fullName }}</a></b>
                            <p><em>{{$act->activity}} at {{ $act->created_at }}</em></p>
+                          @endif
                         </div>
                         <hr>
                         @endforeach

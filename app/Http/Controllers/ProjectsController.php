@@ -65,6 +65,7 @@ class ProjectsController extends Controller
 	    $project->description = $request->description;
 	    $project->user_id = Auth::user()->id;
 	    $project->category = $request->category;
+	    $project->privacyLevel = $request->privacy;
 
 	    $project->save();
 
@@ -147,9 +148,22 @@ class ProjectsController extends Controller
 			return redirect('/');
 		} else {
 			$project = Project::find($request->id);
-			$project->title = $request->title;
-			$project->description = $request->description;
-			$project->category = $request->category;
+			if(isset($request->title)){
+				$project->title = $request->title;
+			}
+			
+			if(isset($request->description)){
+				$project->description = $request->description;
+			}
+			
+			if(isset($request->category)){
+				$project->category = $request->category;
+			}
+
+			if($request->privacy){
+				$project->privacyLevel = $request->privacy;
+			}
+			
 			$project->save();
 
 			$activity = new Activity;

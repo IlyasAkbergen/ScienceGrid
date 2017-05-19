@@ -33,7 +33,7 @@
 			        {{ csrf_field() }}
 			        <div class="form-group">
 			            <label>Category:</label>
-			           <select name="category" id="category[]">
+			            <select name="category" id="category[]">
 	                        
 	                        <?php
 
@@ -46,8 +46,7 @@
 	                            }
 	                        ?>
 	                    </select>
-			            <i>(For descriptive purposes)</i>
-			        </div>
+		        	</div>
 		        
 		     	    <input type="hidden" name="id" value="{{$project->id}}">
 				    <div class="form-group">
@@ -60,7 +59,18 @@
 			            <label for="description">Description:</label>
 			            <textarea placeholder="{{ $project->description }} -Optional" name="description" class="form-control resize-vertical" style="max-width: 100%"></textarea>
 			        </div>
-		           
+		         	<div class="form-group">
+		         		<label>Privacy:</label>
+						<select name="privacy" id="privacy[]">
+							<option value="{{ $project->privacyLevel }}">{{ $project->privacyLevel }}</option>
+							<?php if($project->privacyLevel === 'public'){
+								$secondPrivacy = 'private';
+							}else{
+								$secondPrivacy = 'public';
+							} ?>
+							<option value="{{$secondPrivacy}}">{{$secondPrivacy}}</option>
+						</select>
+		         	</div>  
 		            <button type="submit" data-bind="click: updateAll" class="btn btn-success">Save changes</button>
 
 		     	</form>

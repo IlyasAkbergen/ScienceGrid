@@ -62,6 +62,14 @@
                                         <label for="fileToUpload" class="col-sm-5 control-label">Upload file:</label>
                                         
                                         <input id="fileToUpload" name="uploadFile" type="file" required>
+
+                                        <br><br>
+                                        <label for="privacy[]" class="col-sm-6 control-label">Privacy level:</label>
+                                        <select name="privacy" class="form-control col-sm-2" id="privacy[]" required>
+                                            <option value="public">Public</option>
+                                            <option value="private">Private</option>
+                                        </select>
+
                                         <input type="submit" value="Create" style="margin-top: 20px;" class="btn btn-success col-sm-4">
                                         
                                     </div>
